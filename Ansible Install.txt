@@ -19,6 +19,10 @@ It is connected through SSH connections.
 **Ansible Master and Nodes Setup - Full Steps**
 ==================================================
 
+
+file:///E:/applications/ansible%20installation%20and%20setup-guide.pdf
+
+
 FOR UBUNTU TYPE INSTANCE 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -69,9 +73,9 @@ Edit the hosts file:
 
 On Master, Node1, and Node2:
 
-adduser PJ
+adduser <username>
 
-- Password: Pj@013525
+- Password: <password>
 - Press Enter three times
 - Press `y`
 
@@ -117,7 +121,7 @@ service sshd restart
 -----------------------****
 
 
-# Step 5: Give `sudo` Permissions to `PJ`
+# Step 5: Give `sudo` Permissions to `user`
 *******************************************
 
 (Repeat for Node1 and Node2 also)
@@ -129,7 +133,7 @@ visudo
 
 Add at the end:
 
-PJ ALL=(ALL:ALL) NOPASSWD:ALL
+<user> ALL=(ALL:ALL) NOPASSWD:ALL
 
 
 
@@ -138,9 +142,9 @@ PJ ALL=(ALL:ALL) NOPASSWD:ALL
 # Step 6: Setup SSH Trust (Passwordless SSH)
 ***********************************************
 
-Switch to PJ user in Master:
+Switch to user in Master:
 
-su - PJ
+su - <user>
 
 
 Generate SSH Key:
@@ -151,12 +155,12 @@ ssh-keygen
 
 Copy key to Node1:
 
-ssh-copy-id PJ@<Private-IP-of-Node1>
+ssh-copy-id user@<Private-IP-of-Node1>
 
 
 Copy key to Node2:
 
-ssh-copy-id PJ@<Private-IP-of-Node2>
+ssh-copy-id user@<Private-IP-of-Node2>
 
 
 
@@ -165,7 +169,7 @@ ssh-copy-id PJ@<Private-IP-of-Node2>
 
 Test connection from Master:
 
-ansible all -i /etc/ansible/hosts -m ping -u PJ
+ansible all -i /etc/ansible/hosts -m ping -u user
 
 
 Successful output:
@@ -182,7 +186,7 @@ node2 | SUCCESS => {"changed": false, "ping": "pong"}
 | ---- | ----------------------- |
 | 1    | Install Ansible         |
 | 2    | Define Inventory        |
-| 3    | Create PJ User          |
+| 3    | Create User             |
 | 4    | Configure SSH Settings  |
 | 5    | Grant sudo Permissions  |
 | 6    | Setup SSH Trust         |
@@ -217,13 +221,10 @@ To execute the encrypted playbook.yml file
 
 ansible-playbook <playbook.yml> --ask-vault-pass.
 
-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
 
 
-file:///E:/applications/ansible%20installation%20and%20setup-guide.pdf
 
-
-Playbook to install java-17, maven, git, jenkins, docker 
+Playbook to install java-17, maven, git, docker 
 =============================================
 - name: Install Java 17, Maven, Git, Docker, Jenkins
   hosts: targets
