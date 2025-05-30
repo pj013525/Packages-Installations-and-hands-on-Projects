@@ -22,154 +22,101 @@ It is connected through SSH connections.
 
 file:///E:/applications/ansible%20installation%20and%20setup-guide.pdf
 
+step1:-Install Ansible on Controller Node
+++++++++++++++++++++++++++++++++++++++++++++
 
-FOR UBUNTU TYPE INSTANCE 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1. Update system and install prerequisites
+---------------------------------------------
+   sudo su
+   apt update -y
+   apt install software-properties-common -y
 
-# Step 1: Install Ansible in Master Machine
-**********************************************
+2. Add Ansible PPA and install:
+----------------------------------
+   add-apt-repository --yes --update ppa:ansible/ansible
+   apt install ansible -y
+   ansible --version
 
-sudo su
-apt update -y
-apt-get install -y software-properties-common
-apt-add-repository ppa:ansible/ansible
-apt-get update
-apt-get install -y ansible
+3. Generate SSH Key (On Controller)
+-------------------------------------------
+ 
+ ssh-keygen -t rsa -b 2048
+ yes
+ 3 times press enter
 
-
-FOR AMAZON-LINUX TYPE INSTANCE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-yum update -y
-amazon-linux-extras install epel -y
-yum install ansible -y
-
-
-
-Verify Ansible installation:
-
-ansible --version
-
-
-
-# Step 2: Define Inventory (master Node)
-*******************************************
-
-Edit the hosts file:
-
- ---> vi /etc/ansible/hosts
-
-
-   ====> Add the following:
-
-             [ansiblegroup]
-             <Private-IP-of-Node1>
-             <Private-IP-of-Node2>
+4. Copy SSH Key Target Node
+-----------------------------------
+Attempted:
+ssh-copy-id ubuntu@target-private-IP
+Received error: Permission denied (publickey)
 
 
 
-# Step 3: Create a User `PJ` in Master and Nodes
-*****************************************************
+# Step 2: Define Inventory (controller Node)
+*********************************************
 
-On Master, Node1, and Node2:
+5. Fix SSH Access to Target
+As root user on the target, run:
+------------------------------------
+ mkdir -p /root/.ssh
+ chmod 700 /root/.ssh
 
-adduser <username>
+6. From Controller node, copy the public key:
+-------------------------------------------------
+    cat /root/.ssh/id_rsa.pub
 
-- Password: <password>
-- Press Enter three times
-- Press `y`
+7. On the target, paste the key into authorized_keys:
+-----------------------------------------------------------
+    echo '<your-public-key>' >> /root/.ssh/authorized_keys
+    chmod 600 /root/.ssh/authorized_keys
+
+
+8. Test SSH from Controller node
+  --------------------------------
+   ssh root@<target-Private-IP>
 
 
 
-# Step 4: Configure SSH Settings (Enable Password Login)
+# Step 3: Configure SSH Settings (Enable Password Login)
 **************************************************************
 
-Edit SSH configuration in Master, Node1, Node2:
+9. Create Ansible Inventory File in controller node
+-----------------------------------------------------
+Edit /etc/ansible/hosts and add:
+[targets]
+<target-Private-IP> ansible_user=root
 
-
-vi /etc/ssh/sshd_config
-
-
+10. Edit SSH configuration in controller, target nodes:
+--------------------------------------------------------
 Make the following changes:
+ vim /etc/ssh/sshd_config
 
-- Line 38: `PermitRootLogin yes`
-- Line 43: Remove `#`
-- Line 61: `PasswordAuthentication yes`
-- Line 63: ` Add #`
+    - Line 38: `PermitRootLogin yes`
+    - Line 43: Remove `#`
+    - Line 61: `PasswordAuthentication yes`
+    - Line 63: ` Add #`
 
 
-For latest Ubuntu versions, edit:  (not for AMAZON-LINUX)
-
+11. For latest Ubuntu versions, edit:
+-----------------------------------------
 vi /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
 
 Change:
-
    ===> 'PasswordAuthentication yes'
 
 
-Restart SSH service:
-
+12. Now Restart SSH service:
+--------------------------------
 service ssh restart
 
 
-****-----------------------
-======================
-For amazon linux
 
-service sshd restart
-======================
------------------------****
-
-
-# Step 5: Give `sudo` Permissions to `user`
-*******************************************
-
-(Repeat for Node1 and Node2 also)
-
-Edit sudoers file:
-
-visudo
-
-
-Add at the end:
-
-<user> ALL=(ALL:ALL) NOPASSWD:ALL
-
-
-
-
-
-# Step 6: Setup SSH Trust (Passwordless SSH)
-***********************************************
-
-Switch to user in Master:
-
-su - <user>
-
-
-Generate SSH Key:
-------------------
-
-ssh-keygen
-
-
-Copy key to Node1:
-
-ssh-copy-id user@<Private-IP-of-Node1>
-
-
-Copy key to Node2:
-
-ssh-copy-id user@<Private-IP-of-Node2>
-
-
-
-# Step 7: Test Ansible Connection
+# Step 4: Test Ansible Connection
 **************************************
 
 Test connection from Master:
 
-ansible all -i /etc/ansible/hosts -m ping -u user
+ansible all -i /etc/ansible/hosts -m ping
 
 
 Successful output:
@@ -186,12 +133,8 @@ node2 | SUCCESS => {"changed": false, "ping": "pong"}
 | ---- | ----------------------- |
 | 1    | Install Ansible         |
 | 2    | Define Inventory        |
-| 3    | Create User             |
-| 4    | Configure SSH Settings  |
-| 5    | Grant sudo Permissions  |
-| 6    | Setup SSH Trust         |
-| 7    | Test Ansible Connection |
-
+| 3    | Configure SSH Settings  |
+| 4    | Test Ansible Connection |
 
 
 
@@ -224,8 +167,8 @@ ansible-playbook <playbook.yml> --ask-vault-pass.
 
 
 
-Playbook to install java-17, maven, git, docker 
-=============================================
+Playbook to install java-17, maven, git, docker, jenkins
+===========================================================
 - name: Install Java 17, Maven, Git, Docker, Jenkins
   hosts: targets
   become: true
