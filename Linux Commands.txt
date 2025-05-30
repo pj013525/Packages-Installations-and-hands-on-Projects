@@ -1,0 +1,16 @@
+Linux Commands :-
+--------------------
+cd  -----> Change of Directory
+
+pwd    -----> Present working directory
+
+
+
+aws notes
+============
+https://docs.google.com/document/d/1UxRL3BMPH8yICINHZ4NzJrGSQ50YphOU/edit?tab=t.0
+
+
+jenkins notes
+=================
+https://docs.google.com/document/d/1eJJSJKtYRP3yzFO1DTxzOJXjXf0dLlHx/edit?tab=t.0
