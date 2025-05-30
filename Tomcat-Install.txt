@@ -1,0 +1,239 @@
+Tomcat Installation
+---------------------
+It is called as  webserver host or web servelent
+
+===> It runs on port number: 8080
+     We can change this port number in conf--> vim server.xml ---> connector section and edit
+	 
+===> It is used to deploy the artifacts
+
+    sudo yum install java-17-amazon-corretto -y
+
+  
+   sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.104/bin/apache-tomcat-9.0.104.tar.gz
+   
+   sudo tar xvf apache-tomcat-9.0.104.tar.gz
+   
+   cd apache-tomcat-9.0.104
+   
+       ==> cd webapps/host-manager/META-INF   ---> vim context.xml ==> remove valve and its down line and save
+	   
+	   ==> cd webapps/manager/META-INF   ---> vim context.xml ==> remove valve and its down line and save
+	   
+	   ==> cd conf   ---> vim tomcat-user.xml 
+	   
+	    Enter the below context just above the last line
+	   
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager=jmx"/>
+<role rolename="manager-status"/>
+<user username="pj013525" password="Pj@013525" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
+		
+		==> cd conf   ---> vim server.xml  ==> Go to Connector line and edit Port number to any number
+		                                       then save and exit
+											   
+
+# To restart tomcat do the following step 
+ sudo vi /etc/systemd/system/tomcat.service
+ 
+#Paste the following step 
+ [Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+
+User=ec2-user
+Group=ec2-user
+
+Environment="JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto"
+Environment="CATALINA_PID=/home/ec2-user/apache-tomcat-9.0.104/temp/tomcat.pid"
+Environment="CATALINA_HOME=/home/ec2-user/apache-tomcat-9.0.104"
+Environment="CATALINA_BASE=/home/ec2-user/apache-tomcat-9.0.104"
+ExecStart=/home/ec2-user/apache-tomcat-9.0.104/bin/startup.sh
+ExecStop=/home/ec2-user/apache-tomcat-9.0.104/bin/shutdown.sh
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+											   
+  	sudo systemctl enable tomcat
+	
+	sudo systemctl daemon-reload
+    
+	sudo systemctl start tomcat
+    
+	sudo systemctl status tomcat
+
+					
+					
+					
+					
+					
+					
+					
+					
+Apache/HTTPD Installation
+---------------------------
+
+It runs on Port number: 80
+
+
+
+     ==> sudo yum install httpd -y
+	 
+	 ==> sudo systemctl start httpd
+
+     ==> sudo systemctl enable httpd
+
+     ==> sudo vim /var/www/html/index.html
+               
+			   Add any context in that file and save 
+
+     ==> sudo systemctl restart httpd
+	 
+	 
+Go to any browser and give IP-Address:Port number					
+
+
+
+
+
+
+Dockerfile for tomcat in ubuntu
++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++
+# Use Ubuntu base with OpenJDK 17
+FROM openjdk:17-slim
+
+# Maintainer
+LABEL maintainer="PJ"
+
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y wget tar unzip vim && \
+    apt-get clean
+
+# Set working directory
+WORKDIR /opt
+
+# Set Tomcat version
+ENV TOMCAT_VERSION=9.0.87
+
+# ✅ Download from Apache Archive (not dlcdn)
+RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    tar -xvf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    rm -f apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    mv apache-tomcat-${TOMCAT_VERSION} tomcat
+
+# Set environment variables
+ENV CATALINA_HOME=/opt/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
+
+# Remove Valve blocks (access restriction)
+RUN sed -i '/<Valve className="org.apache.catalina.valves.RemoteAddrValve"/,+1 d' $CATALINA_HOME/webapps/manager/META-INF/context.xml && \
+    sed -i '/<Valve className="org.apache.catalina.valves.RemoteAddrValve"/,+1 d' $CATALINA_HOME/webapps/host-manager/META-INF/context.xml
+
+# Add admin user with manager roles
+RUN sed -i '$i <role rolename="manager-gui"/>\n<role rolename="manager-script"/>\n<role rolename="manager-jmx"/>\n<role rolename="manager-status"/>\n<user username="pj013525" password="Pj@013525" roles="manager-gui,manager-script,manager-jmx,manager-status"/>' $CATALINA_HOME/conf/tomcat-users.xml
+
+# Change default port (optional)
+RUN sed -i 's/port="8080"/port="9090"/' $CATALINA_HOME/conf/server.xml
+
+# Expose port
+EXPOSE 9090
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
+
+
+
+Dockerfilr on ubunut in shortcut
++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++
+
+FROM openjdk:17-slim
+LABEL maintainer="PJ"
+
+RUN apt-get update && apt-get install -y wget tar unzip vim && apt-get clean
+
+ENV TOMCAT_VERSION=9.0.87 \
+    CATALINA_HOME=/opt/tomcat \
+    PATH=$PATH:/opt/tomcat/bin
+
+WORKDIR /opt
+RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    tar -xvf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    mv apache-tomcat-${TOMCAT_VERSION} tomcat && \
+    rm -f apache-tomcat-${TOMCAT_VERSION}.tar.gz
+
+RUN sed -i '/<Valve className="org.apache.catalina.valves.RemoteAddrValve"/,+1 d' $CATALINA_HOME/webapps/manager/META-INF/context.xml && \
+    sed -i '/<Valve className="org.apache.catalina.valves.RemoteAddrValve"/,+1 d' $CATALINA_HOME/webapps/host-manager/META-INF/context.xml && \
+    sed -i '$i <role rolename="manager-gui"/>\n<role rolename="manager-script"/>\n<role rolename="manager-jmx"/>\n<role rolename="manager-status"/>\n<user username="pj013525" password="Pj@013525" roles="manager-gui,manager-script,manager-jmx,manager-status"/>' $CATALINA_HOME/conf/tomcat-users.xml
+
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+
+
+
+
+Dockerfile for tomcat in ec2-user
++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++
+
+# Base Image
+FROM amazoncorretto:17
+
+# Maintainer
+LABEL maintainer="PJ"
+
+# Install required packages
+RUN yum install -y wget tar gzip shadow-utils unzip vim
+
+# Create working directory
+WORKDIR /opt
+
+# Download and extract Tomcat
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.104/bin/apache-tomcat-9.0.104.tar.gz && \
+    tar -xvf apache-tomcat-9.0.104.tar.gz && \
+    rm -f apache-tomcat-9.0.104.tar.gz && \
+    mv apache-tomcat-9.0.104 tomcat
+
+# Set environment variables
+ENV CATALINA_HOME=/opt/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
+
+# Modify context.xml files (remove <Valve> and next line)
+RUN sed -i '/<Valve className="org.apache.catalina.valves.RemoteAddrValve"/,+1 d' $CATALINA_HOME/webapps/manager/META-INF/context.xml && \
+    sed -i '/<Valve className="org.apache.catalina.valves.RemoteAddrValve"/,+1 d' $CATALINA_HOME/webapps/host-manager/META-INF/context.xml
+
+# Add tomcat-users.xml configuration
+RUN sed -i '$i <role rolename="manager-gui"/>\n<role rolename="manager-script"/>\n<role rolename="manager-jmx"/>\n<role rolename="manager-status"/>\n<user username="pj013525" password="Pj@013525" roles="manager-gui,manager-script,manager-jmx,manager-status"/>' $CATALINA_HOME/conf/tomcat-users.xml
+
+# Optional: Change port from 8080 to 9090 (or any)
+RUN sed -i 's/port="8080"/port="9090"/' $CATALINA_HOME/conf/server.xml
+
+# Expose the new port
+EXPOSE 9090
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

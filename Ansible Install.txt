@@ -1,0 +1,321 @@
+Ansible Installation :-
+---------------------------
+
+Ansible is a "Automation Tool"
+
+It is used to automate the work to reduce human time and errors
+
+It helps to simplify the manual work to automate 
+
+It has two components :- 1). Master (or) Controller
+                         2). Target servers (or) Managed Nodes
+						 
+It is a idempotent which means no other installation needed in the Managed nodes
+
+It is connected through SSH connections.						 
+
+
+==================================================
+**Ansible Master and Nodes Setup - Full Steps**
+==================================================
+
+FOR UBUNTU TYPE INSTANCE 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# Step 1: Install Ansible in Master Machine
+**********************************************
+
+sudo su
+apt update -y
+apt-get install -y software-properties-common
+apt-add-repository ppa:ansible/ansible
+apt-get update
+apt-get install -y ansible
+
+
+FOR AMAZON-LINUX TYPE INSTANCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+yum update -y
+amazon-linux-extras install epel -y
+yum install ansible -y
+
+
+
+Verify Ansible installation:
+
+ansible --version
+
+
+
+# Step 2: Define Inventory (master Node)
+*******************************************
+
+Edit the hosts file:
+
+ ---> vi /etc/ansible/hosts
+
+
+   ====> Add the following:
+
+             [ansiblegroup]
+             <Private-IP-of-Node1>
+             <Private-IP-of-Node2>
+
+
+
+# Step 3: Create a User `PJ` in Master and Nodes
+*****************************************************
+
+On Master, Node1, and Node2:
+
+adduser PJ
+
+- Password: Pj@013525
+- Press Enter three times
+- Press `y`
+
+
+
+# Step 4: Configure SSH Settings (Enable Password Login)
+**************************************************************
+
+Edit SSH configuration in Master, Node1, Node2:
+
+
+vi /etc/ssh/sshd_config
+
+
+Make the following changes:
+
+- Line 38: `PermitRootLogin yes`
+- Line 43: Remove `#`
+- Line 61: `PasswordAuthentication yes`
+- Line 63: ` Add #`
+
+
+For latest Ubuntu versions, edit:  (not for AMAZON-LINUX)
+
+vi /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
+
+Change:
+
+   ===> 'PasswordAuthentication yes'
+
+
+Restart SSH service:
+
+service ssh restart
+
+
+****-----------------------
+======================
+For amazon linux
+
+service sshd restart
+======================
+-----------------------****
+
+
+# Step 5: Give `sudo` Permissions to `PJ`
+*******************************************
+
+(Repeat for Node1 and Node2 also)
+
+Edit sudoers file:
+
+visudo
+
+
+Add at the end:
+
+PJ ALL=(ALL:ALL) NOPASSWD:ALL
+
+
+
+
+
+# Step 6: Setup SSH Trust (Passwordless SSH)
+***********************************************
+
+Switch to PJ user in Master:
+
+su - PJ
+
+
+Generate SSH Key:
+------------------
+
+ssh-keygen
+
+
+Copy key to Node1:
+
+ssh-copy-id PJ@<Private-IP-of-Node1>
+
+
+Copy key to Node2:
+
+ssh-copy-id PJ@<Private-IP-of-Node2>
+
+
+
+# Step 7: Test Ansible Connection
+**************************************
+
+Test connection from Master:
+
+ansible all -i /etc/ansible/hosts -m ping -u PJ
+
+
+Successful output:
+
+node1 | SUCCESS => {"changed": false, "ping": "pong"}
+node2 | SUCCESS => {"changed": false, "ping": "pong"}
+
+
+
+# Summary Flow
+*******************
+
+| Step | Task                    |
+| ---- | ----------------------- |
+| 1    | Install Ansible         |
+| 2    | Define Inventory        |
+| 3    | Create PJ User          |
+| 4    | Configure SSH Settings  |
+| 5    | Grant sudo Permissions  |
+| 6    | Setup SSH Trust         |
+| 7    | Test Ansible Connection |
+
+
+
+
+
+
+
+
+Ansible-Vault:-
+====================
+
+Vault is nothing encrypting the playbook.yml file 
+
+ansible-vault create <playbook.yml> ------> To create a playbook with pass(password)
+
+ansible-vault edit <playbook.yml>    ------> To edit a playbook file with pass(password)
+
+ansible-vault rekey <playbook.yml> -------> To change the pass(password) of vault
+
+ansible-vault decrypt <playbook.yml>  ------> To remove the pass(password)
+
+ansible-vault encryptingcrypt <playbook.yml>   ------> To give encryption to existing playbook
+
+
+
+To execute the encrypted playbook.yml file
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ansible-playbook <playbook.yml> --ask-vault-pass.
+
+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
+
+
+file:///E:/applications/ansible%20installation%20and%20setup-guide.pdf
+
+
+Playbook to install java-17, maven, git, jenkins, docker 
+=============================================
+- name: Install Java 17, Maven, Git, Docker, Jenkins
+  hosts: targets
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - software-properties-common
+        state: present
+
+    - name: Install Java 17
+      apt:
+        name: openjdk-17-jdk
+        state: present
+
+    - name: Install Maven
+      apt:
+        name: maven
+        state: present
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: yes
+
+    - name: Install Jenkins on target node (Ubuntu 20.04+)
+        hosts: targets
+        become: yes
+        tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Download Jenkins GPG key
+      ansible.builtin.get_url:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        dest: /usr/share/keyrings/jenkins-keyring.asc
+        mode: '0644'
+
+    - name: Add Jenkins repository with signed-by
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/jenkins.list
+        content: |
+          deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
+        mode: '0644'
+
+    - name: Update apt cache again after adding Jenkins repo
+      apt:
+        update_cache: yes
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Enable and start Docker service
+      systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Ensure Jenkins is started and enabled
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes

@@ -1,0 +1,14 @@
+deployment.yml file
+====================
+
+
+
+
+
+
+
+
+prometheus and grafana monitoring documentation
+==========================================
+
+https://docs.google.com/document/d/1sGHKmL2fuFtwMmDPRfCGbx1kyGeLWGYV/edit?tab=t.0

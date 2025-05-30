@@ -1,0 +1,480 @@
+Docker Workflow:-
+---------------------
+
+                            connect
+docker client   -------->  docker deamon/ docker engine
+                         |
+					     |
+						 | 
+						 ----> If present in local repo 
+						        then it will show
+						                                           connect with
+						 -----> If not then it will    ----------->    docker-hub/registry and it will
+						                                         
+																    ---> pull the image from docker-hub/registry
+ 
+Docker Installation :-
+-----------------------
+
+# 1. Update system
+sudo yum update -y
+
+# 2. Install Docker                   #  In ubuntu
+sudo yum install docker -y           apt install docker.io -y
+
+# 3. Start Docker service
+sudo systemctl start docker
+
+# 4. Enable Docker at boot
+sudo systemctl enable docker
+
+# 5. Check the Status of Docker
+sudo systemctl status docker
+
+# 6. Add ec2-user to Docker group
+sudo usermod -aG docker ec2-user
+
+# 7. Apply group changes
+sudo newgrp docker
+
+# 8. Restart the VM again
+exit 
+exit
+Press R
+
+# 9. Press "docker version" and if you see Experimental : false then do the following
+sudo vim /etc/docker/daemon.json   ----> Insert mode ---->
+{
+  "experimental": true
+}
+
+sudo service docker restart
+
+
+
+Docker Commands:-
+-----------------------------
+
+docker pull <image-name> ---->     To pull the image from the regisrty
+
+docker images ----->     To show the list of images
+
+docker run -it --name <any-name> <Image-name> /bin/bash ----->   To create image and create conatiner and enter into the containers
+
+docker run -dt --name <any-name> <Image-name> /bin/bash ----->   To create image and create conatiner and but now enter into the containers
+
+docker ps ----->   To show the list of running containers
+
+docker ps -a ----->   To show the list of running and stopped containers
+
+docker stop <cont-ID> ----->   To stop the running container after 10sec
+
+docker kill <cont-ID> ----->   To terminate the running container immediately
+
+docker start <cont-ID> ---->   To start the stopped container
+
+ctrl+p & ctrl+q  ---->    To save and exit from the container
+
+docker exec -it <cont-ID> /bin/bash  ---->    To enter into the conatiner again.
+
+docker rename <cont old-name> <cont new-name>  ----->  To rename a conatiner.
+
+docker inspect <cont-name>    ------>  To know the full details of a container
+
+
+
+
+To delete an image with a running, stopped container and Images:-
+---------------------------------------------------------------------------------------
+
+docker stop <cont-ID>      ----->   To stop the running container
+
+docker rm <cont-ID>        ----->   To delete the stopped container
+
+docker rmi <image-name>    ----->   To delete the image completely
+
+docker container prune     ----->   To delete all stopped containers at once.
+
+docker system prune -a     ----->   To remove stopped containers, unused images, unused networks at once.
+
+docker stop $(docker ps -a) ---->   To stop all running conatianers at once
+
+docker start $(docker ps -a) ---->   To start all stopped conatianers at once
+
+docker rm $(docker ps -a)   ---->   To delete all stopped conatianers at once
+
+docker rmi $(docker images) ---->   To delete all images without conatianers at once.
+
+
+
+
+
+CUSTOM IMAGE CREATION:-
+-------------------------
+
+Custom image creation without 'Dockerfile' ( based on container )
+
+   ---> docker commit <cont-name-1> <new-image-name>    ----->   To create a custom image based on a container
+   
+Now create a container based on this custom image 
+
+  ---> docker run -it --name <cont-name-2> <new-image-name> /bin/bash  ----->  To create the container based on cust image
+
+
+Then you will see all the s/w, files ...etc  in the cont-name-2 that present in  the cont-name-1.
+
+
+
+
+=======================================
+Docker and Dockerfile and Docker-Hub
+=======================================
+
+step1:- Logging into the Dockerhub in docker host(terminal)
+---------------------------------------------------------------
+
+docker login    ------>  To login to the docker-hub in the terminal
+                ------> Enter docker-hub username & Password
+
+
+
+step2:- Creating Dockerfile and building an Image from it
+-----------------------------------------------------------
+
+Docker file should always named as "Dockerfile".
+
+vi Dockerfile ----> save and exit
+
+docker build -t <new-image-name> .    ------> To create custom image from the Dockerfile
+
+
+
+step3:- Giving the tag to the builded image before push to dockerhub
+----------------------------------------------------------------------
+
+To push this custom image into the dockerhub  we need to give a tag to this image first
+
+docker tag <new-image-name> <Dockerhub-username>/<new-image-name>
+
+
+
+step4:- Pushing the Tagged image to the docker hub
+------------------------------------------------------
+
+Now push the tagged image to the docker-hub
+
+docker push <Dockerhub-username>/<new-image-name>
+ 
+Go to dockerhub repo you will see the tagged image
+
+
+
+Dockerfile writing steps and commands :-
+------------------------------------------
+FROM             ----->  To create our own custom image on top of a base image
+-----------
+
+FROM <Base-Image-Name>
+
+ex:-  FROM amazonlinux
+----  FROM ubuntu
+	  FROM tomcat  ......etc
+	  
+
+RUN             ----->  To execute the commands while creating the docker image
+-----
+RUN apt update -y
+RUN apt install git -you
+RUN mkdir Folder
+RUN touch file-1
+RUN tar xvf apache.tomcat.x86-unix-3.9.0.tar.gz
+RUN git clone <git URL>
+
+We can write multiple instruction and these instruction will get executed while creating the image itself
+
+
+CMD            ------>  To execute the commands while creating the docker container
+-----
+CMD 
+
+We can write multiple instructions but only the last CMD command will be executed
+
+
+
+
+--------------------
+Docker Volumes
+-------------------
+
+Docker volumes are used store the data and persist(to maintain data even after the container is deleted)
+
+We can share this data from one container to another container
+
+We have 3types of volumes
+ 
+ ---> Named volumes:-
+     -----------------
+     	  It is nothing but giving the specific name for a volume is Named volumes
+          It is managed by Docker and stored in a default loaction in host
+		  It's  defualt path is /var/lib/docker/volumes
+		  
+
+ ---> Anonymous Volumes:- 
+     ---------------------
+          It is a volume created by docker itself when no specific names is given 
+		  It is  very hard to mainatain as it has no specific identity as name
+
+ ---> Binding Mount:-
+     ------------------
+          It is used to link a directory or a file from the host(ec2 instance) to a locaction in container 
+		  
+
+When the Docker container deleted the Docker volumes will not get deleted
+
+We can create multiple volumes in a single container
+
+We can attach 1 volume to a multiple containers
+
+
+Volume commands in the Host (EC2 instance):-
+---------------------------------------------
+
+docker volume create <volume-name/no>  ----> To create new volume
+
+docker volume inspect <volume-name/no>  ----> To get infromation of volume
+
+docker volume ls  -----> To get the list of volumes 
+
+docker volume prune  ----->  To delete the unused volume
+
+docker volume rm <volume-name/no>   ----->  To delete a volume
+
+
+Volume from Dockerfile :- 
+---------------------------
+
+Creating Volume-1 with cont001 and merging Volume-1 with cont002
+
+FROM amazonlinux
+VOLUME ["/volume-1"]
+RUN bash -c 'mkdir folder-1 && cd folder-1 && touch pj-{1..5}'
+RUN yum update -y
+RUN yum install vim git maven tree -you
+CMD ["bash"]
+
+docker build -t new-image .
+
+docker run -it --name cont001 new-image /bin/bash
+ ls  -----> we will see volume-1 in cont001
+
+
+NOTE:-
+========
+
+We cannot attach new volumes to already running container 
+
+So create a new conatainer and attach running container volume and new volume at a time
+
+
+docker run -it --name cont002 --volumes-from cont001 --privileged=true new-image
+ ls ----> we will see volume-1 in cont002 also
+
+ 
+------------------------------------------------------------------------------------ 
+Now attach new volume-name (if any data present or not) to cont-name or mounting
+------------------------------------------------------------------------------------
+
+These commands are used in EC2 instance only
+------------------------------------------------
+
+docker volume create volume-2     ------>  To create a new volume
+
+docker volume ls                  ------>  To list all created volumes
+
+docker volume prune               ------>  To remove unused volumes
+
+docker volume inspect volume-2    ------>  To get the Metadata of a volume
+
+docker volume rm volume-2         ------>  To delete a volume
+
+
+
+docker run -it --name <cont-name> -v <volume-name:/volume-name> image-name
+
+                                 ( or )
+
+docker run -it --name <cont-name> --mount source=<volume-name>,destination=</volume-name> image-name
+
+
+ 								 
+Now attach a volume-1 and new volume-2 (with or without any data) to a cont003
+
+docker run -it --name cont003 --volumes-from cont001 -v volume-2:/volume-2 --privileged=true new-image
+  ls  -----> we will see volume-1 volume-2
+
+
+Now attach cont003(volume-1 volume-2 and new volume-3 and volume-4 ) to new cont004
+
+docker run -it --name cont004 --volumes-from cont003 -v volume-3:/volume-3 -v volume:4/volume-4 --privileged=true new-image
+  ls  -----> we will see the volume-1 volume-2 volume-3 volume-4
+  
+
+
+------------------------------------------------------------
+copy of files from EC2 to volume and attach it to container  
+-------------------------------------------------------------
+
+[   ]# touch pj-1 pj-2                                  # create a files in local machine
+
+
+docker inspect cont-001                                 # Check the volume you want to copy the files from EC2
+  mount:-    
+            volume-1
+			
+			
+docker volume inspect volume-1                          # Check the path of the volume
+    copy the path (/var/lib/docker/volume/volume-1/_data)
+	
+	
+[   ]#Cp * /var/lib/docker/volume/volume-1/_data        # copy the files from EC2 to Volume 
+
+
+docker attach cont-001                                  # Attach the Volume to the container
+
+
+docker exec -it cont-001 /bin/bash                      # Check wheather the files present in conatiner or not
+ ls  --->
+          cd volume-1--->     
+                         pj-1 and pj-2                  # you will see the files that copied from EC2.    
+
+
+
+
+Docker Compose :-
+--------------------						 
+
+It is nothing but a tool which helps in managing the multiple containers of an application with single command
+
+In Docker-compose we will create a "docker-compose".yml (or) .yaml file
+
+
+Components of docker-compose file
+------------------------------------
+ ===> Versions
+ 
+ ===> services
+ 
+ ===> network
+ 
+ ===> volumes
+ 
+
+---------------------------------
+Docker-compose Installation :-
+---------------------------------- 
+
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+(Optional)
+
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+docker-compose --version
+
+
+ 
+Docker-compose Commands
+----------------------------
+
+If you give file name as <docker-compose.yml>  then
+
+dokcer-compose up   ----->  To create container using docker-compose
+
+
+If you give file as <fiel-name.yml> then
+
+docker-compose -f <file-name> up   -----> To create container using different file name 
+
+docker-compose up -d  -----> To run containers in detached mode
+
+docker-compose ps    ------> To display the containers created by docker-compose
+
+docker-compose images  -----> To list the images created by docker-compose
+
+docker-compose down   -----> To remove the containers created by docker-compose
+
+docker logs -f <cont-name>  -----> To check the logs of a container
+
+
+ 
+docker-compose.yml file:-
++++++++++++++++++++++++++++++
+
+version: '3.8'
+
+services:
+
+  jenkins:
+    image: jenkins:v1
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - devops-net
+    restart: always
+
+  nexus:
+    image: nexus:v1
+    container_name: nexus
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus_data:/opt/nexus
+    networks:
+      - devops-net
+    restart: always
+
+  sonarqube:
+    image: sonar:v1
+    container_name: sonar
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonar_data:/opt/sonar
+    networks:
+      - devops-net
+    restart: always
+
+  tomcat:
+    image: tomcat:v1
+    container_name: tomcat
+    ports:
+      - "9090:9090"
+    # Commenting out volume mapping temporarily to use default Tomcat webapps
+    # volumes:
+    #   - ./webapps:/opt/tomcat/webapps
+    networks:
+      - devops-net
+    restart: always
+
+volumes:
+  jenkins_home:
+  nexus_data:
+  sonar_data:
+
+networks:
+  devops-net:
+    driver: bridge
+
+docker-compose up -d 
+docker-compose down
+
+
+     
+     
+

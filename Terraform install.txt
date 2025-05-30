@@ -1,0 +1,7 @@
+terraform init    -----> To initialize the terraform
+
+terraform apply --auto-approve  ----> To create instances in AWS
+
+terraform destroy -target=aws_instance.<xxxxx[0 or 1 or 2]> --auto-approve ----> to destroy a partiular instances
+
+terraform destroy --auto-approve   ----> to destroy all instances

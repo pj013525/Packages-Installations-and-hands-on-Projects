@@ -1,0 +1,23 @@
+Apache/HTTPD Installation
+---------------------------
+
+It runs on Port number: 80
+
+
+
+     ==> sudo yum install httpd -y
+	 
+	 ==> sudo systemctl start httpd
+
+     ==> sudo systemctl enable httpd
+
+     ==> sudo vim /var/www/html/index.html
+               
+			   Add any context in that file and save 
+
+     ==> sudo systemctl restart httpd
+	 
+	 
+Go to any browser and give IP-Address:Port number	 
+
+	 
