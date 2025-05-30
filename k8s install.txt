@@ -12,7 +12,7 @@ ls -l
 
 ################# IN the nodes ###############################
 sudo su (if not done)
- wget https://raw.githubusercontent.com/pj013525/Installations/refs/heads/main/k8s-node.sh
+wget https://raw.githubusercontent.com/pj013525/Installations/refs/heads/main/k8s-node.sh
 ls
 ls -l
 chmod 777 k8s-node.sh
