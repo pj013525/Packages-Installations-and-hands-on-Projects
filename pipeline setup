@@ -1,0 +1,210 @@
+SETUP TOMCAT CREDS IN JENKINS
+---------------------------------------
+
+
+Plugin required:- Deploy to container ==> To deploy the atifacts in to Containers
+
+
+
+Jenkins ---->  Manage Jenkins ---->  Security ---->  Credentials ---->  Click on 'global' ----> 
+
+Add credentials ---->  Kind: Username with Password, Scope: Global,
+
+ username: admin, Password: admin, ID: tomcat-creds, Description: tomcat-creds  ----> Create
+ 
+ 
+Create pipeline job
+
+Repo URL:  (HOTSTAR App)
+
+
+
+For the stage 'Deploy to Tomcat' generate the pipeline syntax;
+
+Open Pipeline Syntax in new tab ----> Sample step: deploy: Deploy war/ear to a container, WAR/EAR Files: **/*.war,
+
+ Context Path: hotstarapp, Add container: Select 'Tomcat 9.x Remote', Credentials: Select the tomcat creds,
+
+  Tomcat URL: Paste upto 8080/ ----> Generate pipeline script ----> Copy and paste in 'Deploy to Tomcat' stage
+  
+Paste the script;
+
+
+
+
+
+LETS PUSH THE ARTIFACT TO S3 BUCKET :-
+---------------------------------------------
+
+
+Plugin required:-  S3 publisher ==> To Store the Artifacts into S3 bucket   
+
+
+
+To do this, we need to generate access and secret keys and we also need to create s3 bucket
+
+IAM ----> Create IAM User with Administrator Access ----> Open user ----> 'Security Credentials' tab
+
+ ----> Create access key ----> Use case: AWS CLI,  ----> Next ----> Create access key
+ 
+ 
+ 
+Lets configure access keys in jenkins ----> Manage jenkins ----> System Configuration ----> System
+  
+ ----> Scroll down to "Amazon S3 Profiles" ----> Add ----> Profile name: s3creds, Access key: <PasteAccessKey>, 
+ 
+ Secret key: <PasteSecretKey> ----> Apply ---->  Save  
+ 
+ 
+ 
+Open the job created ----> Open pipeline syntax (here we will generate script to push artifacts to S3)
+
+  ----> Sample step: S3upload: Publish artifacts to S3 bucket, S3 profile: s3creds, Files to upload: **/*.war, 
+  
+  Destination Bucket: <GiveTheBucketName>/ , Storage class: Standard, Bucket region: <SelectTheRegionofBucket>,
+  
+  'check' Server side encryption ----> Generate pipeline script ----> Copy and paste in 'Artifacts to S3' stage
+  
+  
+  
+  
+  
+
+WORKING WITH SONARQUBE
+-----------------------------
+
+
+Plugins required :- SonarQube Scanner ==> To Scan the code
+   
+                    Sonar Quality Gate ==> To check the quality of Code
+					
+
+  
+Go to SonarQube ----> Projects ----> Add project ----> Manually ----> Project key: hotstar, Display name: hotstar 
+
+ ----> Setup ----> Generate a token: hotstar ----> Generate ----> Copy the token ----> Lets configure the SonarQube credentials in Jenkins
+
+
+
+Jenkins ----> Manage Jenkins ----> Security ----> Credentials ----> Click on 'global' ----> Add creds 
+
+ ----> Kind: Secret text, Scope: Global, Secret: Paste the secret copied from SonarQube, ID: sonar, 
+ 
+  Description: sonar ----> Create
+  
+  
+
+Jenkins ----> Manage Jenkins ----> System Configuration ----> System ----> Scroll down to 'SonarQube servers'
+
+  ----> 'Check' environment variables, Add SonarQube ----> Name: SonarQube, Server URL: <SonarQube URL> [only upto 9000]
+
+  ----> Server authentication token: Select 'sonar' from dropdown ----> Apply ----> Save
+  
+  
+
+Jenkins ----> Manage Jenkins ----> System Configuration ----> Tools ----> Scroll down to 'sonarqube Scanner Installations' 
+
+ ----> Add SonarQube scanner ----> Name: sonarscanner, 'Check' Install automatically, Version: 7.1.0.4889 
+ 
+ ----> Apply ----> Save
+  
+   
+
+Lets integrate SonarQube in the pipeline ----> Open the job ----> Paste the below script (In the script, i have added sonarqube-scanning' stage before the artifacts stage)
+
+
+
+
+
+NEXUS CONFIGURATION :-
+--------------------------
+
+
+Plugin Required :- nexus artifact uploader ==> To store the artifacts into the Artifactory Repository (Nexus)
+
+
+
+Goto Nexus tab in browser ----> Signin ----> Username: admin, To get the password, copy the path seen in the nexus browser 
+ 
+ ----> Goto the nexus connected tab in Moba ----> cat <Paste The Path> ----> Copy the password. ----> Paste the 
+ 
+ password in nexus browser ----> Signin ----> Set the new password ----> Enable anonymous access ----> Signin
+ 
+ 
+
+Click on settings icon ----> Click on 'repositories' ----> Create repo ----> Scroll down and Click on 'maven2 hosted'
+
+ ----> Name: hotstar, Version policy: Snapshot, Layout policy: Strict, Content disposition: Inline, Blob store:
+ 
+ default, Deployment policy: Allow redeploy ----> Create repository ----> You will see 'hotstar' repo 
+ 
+ ----> Lets configure the Nexus credentials in Jenkins
+ 
+ 
+
+Jenkins ----> Manage Jenkins ----> Security ----> Credentials ----> Click on 'global' ----> Add creds
+
+ ----> Kind: Username with Password, Scope: Global, Username: admin, Password: <Enter The Password of SonarQube>,
+ 
+ ID: nexus, Description: nexus ----> Create
+ 
+ 
+
+Lets integrate Nexus in the pipeline ----> Open the job ----> Open pipeline syntax in new tab 
+
+----> Sample step: nexusArtifactUploader: Nexus Artifact Uploader, Nexus Version: Nexus3, Protocol: HTTP,
+
+ Nexus URL: <Paste The Nexus URL> [Ex: IP:8081], Credentials: Select 'nexus' from dropdown, GroupId: in.kastro 
+ 
+ (this is in pom.xml file), Version: 8.3.3-Snapshot (this is in pom.xml file), Repository: hotstar 
+ 
+ (This name should be same as created in the Nexus console), Artifacts: Add: Artifact ID: myapp (this is in pom.xml file),
+ 
+ Type: .war, Classifier: <Leave Blank>, File: target/myapp.war (Note: here instead of path, we can also mention **/*.war)
+ 
+ ----> Generate script ----> Copy the script and paste in the below pipeline stage of 'Nexus'
+ 
+ 
+ 
+Paste the below script (In the script, i have added 'Nexus' stage after the Tomcat stage)
+
+
+
+Pipelin for Docker  image and deploy through docker container
+====================================================
+
+
+plugins:-
+
+docker common
+docker
+credentialsbinding
+docker pipeline
+
+
+
+
+manage jenkins ==> credentials==> 
+ stage('Build the image ') {
+            steps {
+                sh 'docker build -t  <dockerhub/image-name> .'
+                sh 'docker images'
+            }
+        }
+        stage('Push image to dockerhub') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub-details', variable: 'dockerhub_pwd')]) {
+                sh 'echo "${dockerhub_pwd}" | docker login -u pj013525 -p ${dockerhub_pwd}'
+                sh 'docker push  <dockerhub/image-name>'
+                }
+            }
+        }
+        stage('Run the Container') {
+            steps {
+                sh 'docker run -id --name  <container-name> -p <cont-port:defaultport>  <dockerhub/image-name>'
+            }
+        }
+}		
+
+
+ 

@@ -1,0 +1,168 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++
+
+https://medium.com/@srghimire061 ------->  For clear guide of all topics
+
+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+Jenkins Installation
+----------------------
+
+===>It is called as the HEART OF DEVOPS
+
+===> It runs on port number : 8080
+
+===> It's dependency is JAVA
+
+===> It is called CI/CD pipeline tool
+
+===> Its default directory is /var/lib/jenkins
+
+
+
+yum install java-17-amazon-corretto -y
+wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+yum install jenkins -y
+systemctl daemon-reload
+systemctl enable jenkins
+systemctl start jenkins
+systemctl status jenkins
+chkconfig jenkins on
+	
+
+	
+
+===> Open a browser and copy the IP address and serach along with jenkins port number 8080
+     =====> IPaddress:portnumber
+
+Now a path will be shown , copy the path and insert in the terminal then a key will abe shown  copy the key in the 
+     Administaration password section and enter
+	 
+===> Select Install seleted plugins option and enter your details as required	 
+
+
+
+
+
+
+
+Project to deploy in tomcat from jenkins (Free-style type)
+-----------------------------------------------------------
+
+---> Enable port number 8080 for both jenkins and tomcat in EC2 instance
+    
+	 Change port number for tomact in conf/server.xml file in connector section as 9090( as we like)
+	 
+---> Open server and install git , JAVA, Maven	(optional), Tomcat -9.0 version, jenkins
+
+---> Now open browser and enter into jenkins and login as you know by using credentials
+		
+---> Now create a new job
+
+    
+	==> General
+	-------------
+	    
+		----> Give any description as according to your projet
+	
+	==>	SCM
+	---------
+        
+		---> Select git ==> give github repo URL 
+		
+	==> Triggers
+	-------------
+	
+	    ---> Select github webhooks ==> go and get github repo settng and go to webhook 
+		
+	==> Build step
+    --------------
+
+	    ---> Select maven goals ==> give clean package
+		
+	==> Now go to manage jenkins
+     
+    	---> settings ===> conf gmail
+	    
+		---> plugins ===> Available ===> search delpoy to containers plugin ===> install
+		
+		---> Tools ===> Maven  (if not installed in terminal)
+		
+	==> Post build Action
+    ---------------------
+
+        ---> deploy into containers ==> war file path ( **/*.war )
+                                    
+                                    ==> context path ( Any name )
+               		      
+			---> Add Container ==> select tomcat version
+							        
+				==> credenetials ==> Add ==> give Tomact (Username and Password) and any ID and description
+       
+        	    ==> give tomcat URL ---> http://IP:Port number ---> apply and save
+	
+ 	==> Click on buils now and see the result ---> if successful got to tomcat and login with credentials
+	
+	    ---> Check in list of application ==> check the name given in the contextpath in jenkins.
+		
+		
+Dockerfile for Jenkins for ubuntu 	
+++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++
+
+# Use official Jenkins LTS base image
+FROM jenkins/jenkins:lts
+
+# Maintainer info
+LABEL maintainer="pj"
+
+# Define volume for persistence
+VOLUME /home/volume-1
+
+# Switch to root user to install packages
+USER root
+
+# Install any additional packages if needed, for example git, curl, vim
+RUN apt-get update && apt-get install -y git curl vim && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Switch back to Jenkins user
+USER jenkins
+
+# Expose Jenkins default port
+EXPOSE 8080
+
+# Default Jenkins startup command
+CMD ["jenkins.sh"]
+		
+	
+
+
+	
+Dockerfile for Jenkins  for ec2
++++++++++++++++++++++++
+++++++++++++++++++++++++++++++
+
+# Use official Jenkins base image
+FROM jenkins/jenkins:lts
+
+# Define volume for persistence
+VOLUME /home/volume-1
+
+# Use root to install tools
+USER root
+
+# Install additional required tools
+RUN apt-get update && \
+    apt-get install -y wget curl tar gzip vim git maven unzip openjdk-17-jdk
+
+#Expose Jenkins port
+EXPOSE 8080
+
+# Default CMD — already defined in base image so no need to override it
+		

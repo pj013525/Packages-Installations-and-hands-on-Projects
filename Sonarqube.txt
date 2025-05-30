@@ -1,0 +1,136 @@
+Sonarqube Installation
+------------------------
+
+---> It is used to check the quality of code to avoid any types of bugs, vulnerabilities, flaws, code smells
+
+---> It is a cross flatform tool (Linux, Windows, Maos)
+
+---> It dependencies are JAVA.
+
+---> It runs on Port number : 9000
+
+---> It also requires certain hardware components like
+      
+	   ==> CPU ----> 2GB
+	   
+	   ==> Memory ---> 4GB
+
+ ==> sudo yum install java-17-amazon-corretto-headless -y
+
+  ==> cd /opt
+
+sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.6.50800.zip
+sudo unzip sonarqube-8.9.6.50800.zip
+sudo mv sonarqube-8.9.6.50800 sonar 
+chown -R PJ:PJ sonar
+chmod -R 777 sonar
+  
+
+
+Update Configuration
+-----------------------
+
+  ==> sudo vim /opt/sonar/conf/sonar.properties
+       
+	   Remove the # infront of the  
+	   
+	       sonar.web.host=0.0.0.0
+           sonar.web.port=9000
+
+
+# To restart sonarqube automatically then do as follow 
+sudo vim /etc/systemd/system/sonar.service
+
+#Paste the following lines in it
+
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/sonar/bin/linux-x86-64/sonar.sh start
+ExecStop=/opt/sonar/bin/linux-x86-64/sonar.sh stop
+User=PJ
+Group=PJ
+Restart=on-failure
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+    sudo systemctl daemon-reload
+	
+	sudo systemctl enable sonar
+	
+	sudo systemctl start sonar
+
+    sudo systemctl status sonar
+   
+  
+  Go to browser and give IP address and POrt number
+  
+       IP-address:9000
+	   
+ 
+  ==> Open Port no. 9000 for the server and setup SonarQube 
+       
+		---> Username: admin
+        ---> Password: admin		
+ 
+  
+  
+  
+  
+  
+Dockerfile for Sonarqube
+++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++
+
+# Use Amazon Corretto JDK 17 as base image
+FROM amazoncorretto:17
+
+# Maintainer
+LABEL maintainer="PJ"
+
+# Install required packages
+RUN yum install -y wget unzip vim tar shadow-utils
+
+# Create sonar user (simulate PJ)
+RUN useradd -ms /bin/bash PJ
+
+# Set working directory
+WORKDIR /opt
+
+# Download and extract SonarQube
+RUN wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.6.50800.zip && \
+    unzip sonarqube-8.9.6.50800.zip && \
+    mv sonarqube-8.9.6.50800 sonar && \
+    rm -f sonarqube-8.9.6.50800.zip
+
+# Set permissions
+RUN chown -R PJ:PJ /opt/sonar && \
+    chmod -R 755 /opt/sonar
+
+# Install procps to get the 'ps' command
+RUN yum install -y procps
+
+# Configure sonar.properties (remove # from host/port lines)
+RUN sed -i 's/#sonar.web.host=127.0.0.1/sonar.web.host=0.0.0.0/' /opt/sonar/conf/sonar.properties && \
+    sed -i 's/#sonar.web.port=9000/sonar.web.port=9000/' /opt/sonar/conf/sonar.properties
+
+# Set environment variables (important for SonarQube)
+ENV SONAR_HOME=/opt/sonar
+ENV PATH=$SONAR_HOME/bin/linux-x86-64:$PATH
+
+# Expose SonarQube port
+EXPOSE 9000
+
+# Switch to PJ user
+USER PJ
+
+# Start SonarQube when container runs
+CMD ["/opt/sonar/bin/linux-x86-64/sonar.sh", "console"]

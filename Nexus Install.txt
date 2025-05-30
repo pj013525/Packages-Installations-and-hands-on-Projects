@@ -1,0 +1,179 @@
+Nexus Installation
+---------------------
+
+This is called Artifactory Repository 
+
+This is used to store Artifacts(war/jar/ear files) that created in Maven build, dependencies/ libraries, docker images 
+
+It runs on the prot number: 8081
+
+It's dependencies are JAVA , and required minimum 2 vCPU, 4gb memory as capacity 
+
+Create an AWS server
+----------------------
+
+  -> Create amazon Linux instance (t2.Medium) and enable 8081 port in the respective security group 
+    Note: Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type (Used in my example)
+
+
+----------------------
+Installation process
+---------------------- 
+ 
+ ->  sudo yum install java-17-amazon-corretto -y
+
+
+
+Download the Nexus tar file
+
+  -> cd /opt
+ 
+  -> sudo wget https://download.sonatype.com/nexus/3/nexus-unix-x86-64-3.79.0-09.tar.gz
+  
+  -> sudo tar xvf  nexus-unix-x86-64-3.79.0-09.tar.gz
+
+#Change the name to nexus to make it easy
+
+  -> sudo mv nexus-3.79.0-09 nexus
+  
+
+#Create a user with full permission
+
+  -> useradd PJ
+  -> passwd PJ
+       ---->Pj@013525
+
+
+
+#Provide sudo access to the nexus user using the below command
+
+  -> Add the below line in /etc/sudoers file 
+  
+  -> vim /etc/sudoers 
+     PJ   ALL=(ALL)       NOPASSWD: ALL
+	   
+
+
+#Give the Nexus user ownership to that folder 
+
+  -> sudo chown -R PJ:PJ /opt/nexus
+   
+  -> sudo chown -R PJ:PJ /opt/sonatype-work
+
+
+
+#Make necessary configuration changes in Nexus  
+
+  -> vim /opt/nexus/bin/nexus.rc
+     run_as_user="PJ" 
+	 
+
+
+vim /opt/nexus/bin/nexus.vmoptions
+
+#Remove the first 15 lines i.e upto the space just before the "#additional vmoptions needed for java9+". Remember, dont delete "#additional vmoptions needed for java9+" line
+Paste the below content above "#additional vmoptions needed for java9+" line
+
+-Xms1024m
+-Xmx1024m
+-XX:MaxDirectMemorySize=1024m
+
+-XX:LogFile=./sonatype-work/nexus3/log/jvm.log
+-XX:-OmitStackTraceInFastThrow
+-Djava.net.preferIPv4Stack=true
+-Dkaraf.home=.
+-Dkaraf.base=.
+-Dkaraf.etc=etc/karaf
+-Djava.util.logging.config.file=/etc/karaf/java.util.logging.properties
+-Dkaraf.data=./sonatype-work/nexus3
+-Dkaraf.log=./sonatype-work/nexus3/log
+-Djava.io.tmpdir=./sonatype-work/nexus3/tmp 
+
+Save and exit
+
+
+To run nexus as service using Systemd
+sudo vi /etc/systemd/system/nexus.service ----> Paste the below content ---->
+
+[Unit]
+Description=nexus service
+After=network.target
+
+[Service]
+Type=forking
+LimitNOFILE=65536
+ExecStart=/opt/nexus/bin/nexus start
+ExecStop=/opt/nexus/bin/nexus stop
+User=PJ
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target 
+
+Save and exit	 
+
+
+systemctl start nexus
+systemctl enable nexus 
+systemctl status nexus 
+
+
+Access nexus url at http://<IP-address>:8081
+
+Use default credentials to log-in
+ 
+   username: admin
+  password: cat /opt/sonatype-work/nexus3/admin.password
+            and change password.
+			
+			
+			
+			
+			
+			
+			
+Dockerfile for nexus image
++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++
+
+# Use Amazon Linux 2 as base image
+FROM amazonlinux:2
+
+# Switch to root
+USER root
+
+# Install necessary packages
+RUN yum update -y && \
+    yum install -y java-17-amazon-corretto wget tar vim shadow && \
+    useradd -m PJ
+
+# Set working directory
+WORKDIR /opt
+
+# Download and extract Nexus
+RUN wget https://download.sonatype.com/nexus/3/nexus-unix-x86-64-3.79.0-09.tar.gz && \
+    tar -xvf nexus-unix-x86-64-3.79.0-09.tar.gz && \
+    mv nexus-3.79.0-09 nexus
+
+# Set proper ownership
+RUN chown -R PJ:PJ /opt/nexus && \
+    mkdir -p /opt/sonatype-work && \
+    chown -R PJ:PJ /opt/sonatype-work
+
+# Set run_as_user in nexus.rc
+RUN echo 'run_as_user="PJ"' > /opt/nexus/bin/nexus.rc
+
+# Set environment variables
+ENV NEXUS_HOME=/opt/nexus \
+    NEXUS_DATA=/opt/sonatype-work
+
+# Expose default Nexus port
+EXPOSE 8081
+
+# Use PJ user to run Nexus
+USER PJ
+
+# Start Nexus
+CMD ["/opt/nexus/bin/nexus", "run"]
+
+

@@ -1,0 +1,87 @@
+Master and Slave Nodes:-
+----------------------------
+
+Master node is nothing but a VM which performs the builds in jenkins pipeline and
+ Slave node is nothing but a VM which is used to store the jobs results in it 
+ 
+
+Master node  requires Tomacat,maven,git,java-17,jenkins,nexus,sonarqube....
+ Slave node requires only git, java-17, maven
+ 
+
+We use SSH Protocal to connect this Master node with the Slave node(s) in Jenkins.
+
+
+ 
+ 
+Lets configure the Slave Nodes in Jenkins dashboard
+-------------------------------------------------------
+
+
+Adding Slave 1 in Jenkins dashboard
+---------------------------------------
+
+Jenkins dashboard ----> Build executor status (left pane bottom) ----> Currently you will "Built-in node" 
+ 
+ which means it is a MASTER node ----> Click on "New Node" ----> Node name: slave1, Type: Permanent Agent 
+ 
+ ----> Create ----> Name: slave1 ----> Description: This is Slave 1 ----> No. of executors: 3 (this is to run 
+ 
+  number of builds parallelly) ----> Remote root directory: /tmp (In this path of slave nodes, the builds will 
+  
+  be stored) ----> Labels: slave1 (This label name is very important because this label name is the same name we
+
+  should configure in the pipeline script. Based on this only, the job will get executed on whichever worker node
+
+  we want) ----> Usage: Only build jobs with label expressions matching this node ----> Launch method: Launch 
+  
+  agents via SSH ----> Host: <PrivateIPofSlave1> ----> Credentials: Add: Jenkins ----> Scope: Global, Kind: SSH 
+  
+  username with private key, Scope: Global, ID: <Leave Blank> ,Description: <Leave Blank>, Username: ec2-user,
+
+  Private key: Enter directly: Paste the entire content from pem file which is used to launch worker node 1 
+  
+  ----> Save ----> From the dropdown, select "ec2-user" ----> Host key verification strategy: Non verifying 
+  
+  verification strategy ----> Availability: Keep this agent online as much as possible ----> Save ----> 
+  
+  You can see Slave1 got added. Just refresh, you will see the values under free disk space, free temp space and
+
+  other options available.
+  
+  
+  
+
+Adding Slave 2 in Jenkins dashboard
+--------------------------------------
+
+Jenkins dashboard ----> Build executor status (left pane bottom) ----> Currently you will "Built-in node" which 
+
+ means it is a MASTER node ----> Click on "New Node" ----> Node name: slave2, Type: Permanent Agent ---->
+ 
+ Create ----> Name: slave2 ----> Description: This is Slave 2 ----> No. of executors: 3 (this is to run number 
+ 
+ of builds parallelly) ----> Remote root directory: /tmp (In this path of slave nodes, the builds will be stored)
+
+ ----> Labels: slave2 (This label name is very important because this label name is the same name we should 
+ 
+ configure in the pipeline script. Based on this only, the job will get execute on whichever worker node we want)
+
+ ----> Usage: Only build jobs with label expressions matching this node ----> Launch method: Launch agents via
+
+ SSH ----> Host: <PrivateIPofSlave2> ----> Credentials: From the dropdown, select "ec2-user" (Since both slave 
+ 
+ nodes have same pem file, we can directly use the existing credentials. If its a different pem file, we have to 
+ 
+ follow the process as we have followed in Slave 1) ----> Host key verification strategy: Non verifying 
+ 
+ verification strategy ----> Availability: Keep this agent online as much as possible ----> Save ----> You can 
+ 
+ see Slave2 got added. Just refresh, you will see the values under free disk space, free temp space and other
+
+ options available.
+ 
+ 
+ 
+
+This is the configuration of master and slave. 
