@@ -2,7 +2,7 @@ CREATE 3 ec2 t3.medium machine with all traffic enabled
 
 In Master machine: 
 sudo su
-wget https://raw.githubusercontent.com/akshu20791/Deployment-script/main/k8s-master.sh
+wget https://raw.githubusercontent.com/pj013525/Installations/refs/heads/main/k8s-master.sh
 ls -l
 ls
 chmod 777 k8s-master.sh
@@ -12,12 +12,12 @@ ls -l
 
 ################# IN the nodes ###############################
 sudo su (if not done)
- wget https://raw.githubusercontent.com/akshu20791/Deployment-script/main/k8s-nodes.sh
+ wget https://raw.githubusercontent.com/pj013525/Installations/refs/heads/main/k8s-node.sh
 ls
 ls -l
-chmod 777 k8s-nodes.sh
+chmod 777 k8s-node.sh
 ls -l
-./k8s-nodes.sh
+./k8s-node.sh
 
 
 ###########################################################################
@@ -34,14 +34,11 @@ After k8s installation is done . we need to connect nodes with the master via to
 
 ### generate token in master:  (run below command in k8s master) 
 
-kubeadm token create --print-join-command 
+kubeadm token create --print-join-command
 
-## whatever token comes up ...copy the token and paste it in notepad and after that in the command you will see 6443 written ...after that paste --cri-socket unix:///var/run/cri-dockerd.sock
+you will get the following, then copy and paste it in the notepad 
 
-
-EXAMPLE: YOUR TOKEN SHOULD LOOK LIKE THIS (REMEMBER NOT TO COPY BELOW TOKEN ITS NOT YOURS)
-
-kubeadm join 172.31.17.126:6443 --cri-socket unix:///var/run/cri-dockerd.sock --token 5fh9ia.7dqyttb7tvzzarg6 --discovery-token-ca-cert-hash sha256:47a2d8b3157d6cee55109aa3a37887d031a24128de05732b0c168fe9da62733e 
+kubeadm join 172.31.17.126:6443 --token 5fh9ia.7dqyttb7tvzzarg6b --discovery-token-ca-cert-hash sha256:47a2d8b3157d6cee55109aa3a37887d031a24128de05732b0c168fe9da62733e 
 
 
 ################
@@ -52,16 +49,12 @@ Now paste the tokens in the nodes one by one
 
 #################
 
+## whatever token comes up ...copy the token and paste it in notepad and after that in the command you will see 6443 written ...after that paste --cri-socket unix:///var/run/cri-dockerd.sock
 
 
+EXAMPLE: YOUR TOKEN SHOULD LOOK LIKE THIS (REMEMBER NOT TO COPY BELOW TOKEN ITS NOT YOURS)
 
-
-
-
-
-https://drive.google.com/drive/folders/12vPOuDAYuqM9irD-DM3YZrfj3zfpFrF9
-
-https://github.com/akshu20791
+kubeadm join 172.31.17.126:6443 --cri-socket unix:///var/run/cri-dockerd.sock --token 5fh9ia.7dqyttb7tvzzarg6 --discovery-token-ca-cert-hash sha256:47a2d8b3157d6cee55109aa3a37887d031a24128de05732b0c168fe9da62733e
 
 
 
