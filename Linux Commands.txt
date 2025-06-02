@@ -1,16 +1,25 @@
 Linux Commands :-
 --------------------
 cd  -----> Change of Directory
-
+cd ../  ------> To go back to one step from the current directory
+ls   ----->  To list the files and directories in short form of current directory
 pwd    -----> Present working directory
+ll    ------> To view the files and directories in long foeom with metadata
+ll -a ------>  To view the hidden files and directories
+lsblk -----> To check the storage in the dics of an VM
+whoami ------> To know the current user
+hostname ------>  To show he host of the VM 
+cat <filename>  -----> To read the content in a file
+cat > <file> ----> To write a content in a file but remove the previous content
+cat >> <file>  -----> To add extra content to file without changing in any previous content
+vim <file> -----> To create and add a content in a new file and to edit a file
+head <file>  ------> To show the top 10 lines in a file
+tail <file>  ------> To show the bottom 10 lines in a file
+mv <source file> <destination>  ------> to move a from one path to different path
+mv <old name> <new name>  ------> To rename a file
+cp <source file> <destination>  ------>  To copy the file from a location
 
 
 
-aws notes
-============
-https://docs.google.com/document/d/1UxRL3BMPH8yICINHZ4NzJrGSQ50YphOU/edit?tab=t.0
 
 
-jenkins notes
-=================
-https://docs.google.com/document/d/1eJJSJKtYRP3yzFO1DTxzOJXjXf0dLlHx/edit?tab=t.0
