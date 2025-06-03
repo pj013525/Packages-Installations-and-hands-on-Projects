@@ -3,6 +3,25 @@ git notes link
 
 https://docs.google.com/document/d/15CX3cUIeor3IIdsvY9DTe_KwbsS6EMET/edit?tab=t.0
 
+Git :- 
+=========
+Git is a free tool and is used as a version control system and it ws develpoed ny linux torvalds in 2005
+It helps in tracking the changes and show who push the code to remote repository
+It is also help in maintaining the code and helps the developers to develope in their local system individually without any disturbance to others
+
+Go to browser and https://github.com/git-for-windows/git/releases/download/v2.49.0.windows.1/Git-2.49.0-64-bit.exe and install git 
+
+It has 3stages:-
+
+Working area -----> Where developer write the code
+    ↓ --> git add .
+staging area  -----> Where code push to the local repository
+    ↓ --> git commit -m "any message"
+Local repository  -----> Where we push the code to remote repository
+    ↓ --> git push origin 
+Remote repository -----> Where we store the and mnage the code
+git status ----> To check the status of the files
+git logs ----> To see the logs in the local repository
 
 
 Important Basic and Advanced level Git&GitHub Commands
