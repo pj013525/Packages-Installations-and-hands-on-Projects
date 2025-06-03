@@ -322,19 +322,3 @@ pipeline {
         }    
     }
 }
-
-
-
-
-
-
-
-
-
-stage('sonarqube scanner') {
-            steps {
-                withSonarQubeEnv('sonarqube server') { 
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.0.4389:sonar'
-				}	  
-            }         
-        }
