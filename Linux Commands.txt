@@ -1,23 +1,71 @@
 Linux Commands :-
 --------------------
+
 cd  -----> Change of Directory
 cd ../  ------> To go back to one step from the current directory
 ls   ----->  To list the files and directories in short form of current directory
 pwd    -----> Present working directory
+/home/ubuntu -----> Home directory of ubuntu user
+/  ------>  This the root directory
 ll    ------> To view the files and directories in long foeom with metadata
 ll -a ------>  To view the hidden files and directories
+ll -at   ------> To show the metadata of files and dirc's from recent to old
+ll -atr  ----->  To show the metadata of files and dirc's from old to recent
+history  ------> To show the commands history
 lsblk -----> To check the storage in the dics of an VM
 whoami ------> To know the current user
-hostname ------>  To show he host of the VM 
+hostname ------>  To show the host of the VM
+hostnamectl set-hostname <name> -----> To change the hostname of a VM
+
+
+wc -l <file>  ------> To show the total no of lines in a file
+wc -w <file>  ------> To show the total no of words in a file
+wc -m <file>  ------> To show the total no of characters in a file
+
+
+mkdir <folder> ------>  To create a empty direcctory
+touch <file>  ------>  To create a empty file
+touch <file{1..n}>  -----> To create n no of files at once
 cat <filename>  -----> To read the content in a file
+cat -n <file> -----> To give numbers to lines in a file
+cat <file1><file2> > <file3> ------> To copy file1 and file2 ontent into file3 
 cat > <file> ----> To write a content in a file but remove the previous content
 cat >> <file>  -----> To add extra content to file without changing in any previous content
-vim <file> -----> To create and add a content in a new file and to edit a file
+tac <file>  -----> To show content in a file in reverse order
 head <file>  ------> To show the top 10 lines in a file
+head -n <number> <file> -----> To show the required no of lines from top in a file
 tail <file>  ------> To show the bottom 10 lines in a file
-mv <source file> <destination>  ------> to move a from one path to different path
+tail -n <number> <file> -----> To show the required no of lines from bottom in a file
+tail -f <file>  -----> To monitor the file continuously
+rm <file>  ------>  To delete a file
+rmdir <Dire>  ------> To delete empty directory
+rm -rf <Dire>  ------> To delete directory with some content
+
+
+mv <source file> <destination>  ------> To move a from one path to different path
 mv <old name> <new name>  ------> To rename a file
 cp <source file> <destination>  ------>  To copy the file from a location
+grep <word> <file/dire>  ------> To show the word in a file/dire
+grep -i <word> <file/dire>  ------> To show the word in a file/dire irrespective of capital or small
+ll | grep ^- -----> To list all the files in a current path
+ll | grep ^d  ----> To list all the directories in a current path
+cat <file> | grep <word>  ------> To search a word in  file using pipe symbol
+
+
+find <path> -name <fiel/dire>  -----> To find a file or dire in a current path
+find <path> -name <file> -type f -----> To find a file in a path only if it is a file
+find <path> -name <dire> -type d  -----> To find a dire in a path only if it is a directory
+find <path> -type(file/dire) -name "*.exte-name" -----> To find a filre or dire in a path using extension 
+find <path> -type (file/dire) -empty ------> To find an empty file or dire in a path
+
+
+wget <url> -----> To download a apcckage from the internet to the VM
+curl <url> -----> To download the context from a file directly into VM
+
+
+vim <file> -----> To create and add a content in a new file and to edit a file
+esc nd 
+ 
 
 
 
