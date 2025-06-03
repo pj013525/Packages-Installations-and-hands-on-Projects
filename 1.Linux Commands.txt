@@ -1,18 +1,18 @@
-Linux Commands :-
---------------------
+Linux Basic Commands :-
+===========================
 
-cd  -----> Change of Directory
-cd ../  ------> To go back to one step from the current directory
+cd  -----> Change the Directory
+cd ../  ------> To go back to one step from the current path
 ls   ----->  To list the files and directories in short form of current directory
 pwd    -----> Present working directory
 /home/ubuntu -----> Home directory of ubuntu user
-/  ------>  This the root directory
-ll    ------> To view the files and directories in long foeom with metadata
-ll -a ------>  To view the hidden files and directories
-ll -at   ------> To show the metadata of files and dirc's from recent to old
-ll -atr  ----->  To show the metadata of files and dirc's from old to recent
-history  ------> To show the commands history
-lsblk -----> To check the storage in the dics of an VM
+/  ------>  This is the root directory
+ll    ------> To view the files and directories in long form with metadata
+ll -a ------>  To view the hidden files and directories in long form
+ll -at   ------> To show the metadata of hidden files and dirc's from recent to old
+ll -atr  ----->  To show the metadata of hidden files and dirc's from old to recent
+history  ------> To show the commands used
+lsblk -----> To check the storage in the disc of an VM
 whoami ------> To know the current user
 hostname ------>  To show the host of the VM
 hostnamectl set-hostname <name> -----> To change the hostname of a VM
@@ -41,6 +41,9 @@ rm <file>  ------>  To delete a file
 rmdir <Dire>  ------> To delete empty directory
 rm -rf <Dire>  ------> To delete directory with some content
 
+
+Linux Advnced Commands:-
+==============================
 
 mv <source file> <destination>  ------> To move a from one path to different path
 mv <old name> <new name>  ------> To rename a file
