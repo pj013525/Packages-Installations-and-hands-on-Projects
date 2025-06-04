@@ -1,0 +1,14 @@
+What is shell?
+Shell is nothing but a interpreter between user and kernel
+
+What is scripting?
+Scripting is set of ocmmands to perform a task
+
+What is shell scripting
+It is a file with set of commands to perform from top to bottom to complete a task 
+File name is always ends with .sh (optional but better if we use)
+It is run using 
+   ==> sh script.sh
+   ==> ./script.sh
+        ==> chmod +x script.sh
+   ==> bash script.sh
