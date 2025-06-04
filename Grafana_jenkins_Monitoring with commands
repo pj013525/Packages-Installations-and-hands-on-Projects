@@ -1,0 +1,97 @@
+This document provides a step-by-step guide to set up a Grafana dashboard for monitoring the CPU and memory utilization of a Jenkins build server using Prometheus as the data source. The document includes commands that you can directly copy and use.
+Prerequisites
+1. **Servers Required**:
+   - **Jenkins Server** (EC2 instance where Jenkins is installed)
+   - **Prometheus Server** (EC2 instance where Prometheus is running and scraping metrics from Jenkins)
+   - **Grafana Server** (Separate EC2 instance to install and configure Grafana)
+
+2. **Packages Required**:
+   - **Jenkins Server**: Jenkins should be running with the Prometheus plugin installed.
+   - **Prometheus Server**: Prometheus for scraping Jenkins metrics.
+   - **Grafana Server**: Grafana for visualizing Jenkins server metrics.
+
+
+Installation Process :-
+=========================
+
+1. Jenkins Server Setup
+ - Install Jenkins on an EC2 instance (or use an existing Jenkins setup).
+     
+     sudo apt update
+     sudo apt install openjdk-11-jdk -y
+     sudo apt install wget -y
+     wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+     sudo sh -c 'echo deb http://pkg.jenkins.io/debian/ stable main > /etc/apt/sources.list.d/jenkins.list'
+     sudo apt update
+     sudo apt install jenkins -y
+     sudo systemctl start jenkins
+     sudo systemctl enable jenkins
+     
+- Install Prometheus plugin in Jenkins:
+     - Go to **Manage Jenkins > Manage Plugins**.
+     - Search for **Prometheus Plugin** and install it.
+
+ - Configure Jenkins to expose metrics for Prometheus:
+     - Go to **Manage Jenkins > Configure System**.
+     - Add the **Prometheus Metrics** section and enable it.
+
+
+2. Prometheus Server Setup
+   - Install Prometheus on an EC2 instance.
+     
+     sudo apt update
+     sudo apt install prometheus -y
+     
+   - Configure Prometheus to scrape Jenkins metrics:
+     - In `prometheus.yml`, add Jenkins server scraping configuration:
+       
+       scrape_configs:
+         - job_name: "jenkins"
+           static_configs:
+             - targets: ["<JENKINS_SERVER_IP>:<JENKINS_PORT>"]
+       
+   - Start Prometheus service and make sure it's running:
+     
+     sudo systemctl start prometheus
+     sudo systemctl enable prometheus
+
+search the metrics <jenkins-ip:9323(prometheus metrics run port)>
+
+
+3. Grafana Server Setup
+   - Install Grafana on a **separate EC2 server**.
+
+     - Add the Grafana repository:
+       
+       sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+       sudo apt-get update
+       
+     - Install Grafana:
+       sudo apt-get install grafana
+      
+       Start and enable Grafana:
+       sudo systemctl start grafana-server
+       sudo systemctl enable grafana-server
+       
+   - Access Grafana on 'http://<GRAFANA_SERVER_IP>:3000'
+
+
+4. Configure Grafana
+   - **Add Prometheus as a data source**:
+     - Login to Grafana dashboard.
+     - Go to **Configuration > Data Sources > Add data source**.
+     - Select **Prometheus** and configure the URL (i.e., http://<PROMETHEUS_SERVER_IP>:9090).
+
+   - **Create a Dashboard**:
+     - Go to **Create > Dashboard**.
+     - Add a new **Graph panel**.
+     - Set the Prometheus query to fetch CPU and memory usage metrics for Jenkins.
+       Example Prometheus queries:
+       - CPU Usage: rate(process_cpu_seconds_total{job="jenkins"}[1m])
+       - Memory Usage: process_resident_memory_bytes{job="jenkins"}
+
+
+5. Verify Dashboard
+   - Once the dashboard is created, verify if the metrics are being displayed for Jenkins CPU and memory utilization.
+Conclusion
+This setup will allow you to monitor the CPU and memory utilization of your Jenkins build server using Prometheus as the data source and Grafana for visualization. Ensure that all servers are configured properly and the services are running before verifying the dashboard.
