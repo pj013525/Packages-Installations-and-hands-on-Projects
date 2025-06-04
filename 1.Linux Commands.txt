@@ -34,7 +34,7 @@ cat <filename>  -----> To read the content in a file
 cat -n <file> -----> To give numbers to lines in a file
 cat <file1><file2> > <file3> ------> To copy file1 and file2 ontent into file3 
 cat > <file> ----> To write a content in a file but remove the previous content
-cat >> <file>  -----> To add extra content to file without changing in any previous content
+cat >> <file>  -----> To add extra content to file without change in previous content
 tac <file>  -----> To show content in a file in reverse order
 head <file>  ------> To show the top 10 lines in a file
 head -n <number> <file> -----> To show the required no of lines from top in a file
@@ -52,8 +52,10 @@ Linux Advnced Commands:-
 mv <source file> <destination>  ------> To move a from one path to different path
 mv <old name> <new name>  ------> To rename a file
 cp <source file> <destination>  ------>  To copy the file from a location
-grep <word> <file/dire>  ------> To show the word in a file/dire
-grep -i <word> <file/dire>  ------> To show the word in a file/dire irrespective of capital or small
+grep <word> <file>  ------> To show the word in a file
+grep -i <word> <file>  ------> To show the word in a file irrespective of capital or small
+grep -r <word> <diree>  ------> To show the word in a dire
+grep -r -i <word> <dire>  ------> To show the word in a dire irrespective of capital or small
 ll | grep ^- -----> To list all the files in a current path
 ll | grep ^d  ----> To list all the directories in a current path
 cat <file> | grep <word>  ------> To search a word in  file using pipe symbol
