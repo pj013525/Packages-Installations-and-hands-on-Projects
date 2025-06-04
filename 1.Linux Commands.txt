@@ -35,6 +35,7 @@ cat -n <file> -----> To give numbers to lines in a file
 cat <file1><file2> > <file3> ------> To copy file1 and file2 ontent into file3 
 cat > <file> ----> To write a content in a file but remove the previous content
 cat >> <file>  -----> To add extra content to file without change in previous content
+ctrl+d  -------> To save the file after cat
 tac <file>  -----> To show content in a file in reverse order
 head <file>  ------> To show the top 10 lines in a file
 head -n <number> <file> -----> To show the required no of lines from top in a file
@@ -70,12 +71,44 @@ find <path> -type(file/dire) -name "*.exte-name" -----> To find a filre or dire 
 find <path> -type (file/dire) -empty ------> To find an empty file or dire in a path
 
 
-wget <url> -----> To download a apcckage from the internet to the VM
+cut -c <req-characte> <file> ------> To show the characters based on required number in a file
+cut -d < > -f <words range> <file> -----> to show the words after delimiter in a file
+
+
+wget <url> -----> To download a package from the internet to the VM
 curl <url> -----> To download the context from a file directly into VM
 
 
+vim/vi/nano:-
+===============
+
 vim <file> -----> To create and add a content in a new file and to edit a file
-esc nd 
+press "i" ------>  to insert content in to the file
+esc and : ------> To stop the editing the file
+:q  ------> To quit the file if not changed any thing
+:q! ------> Forcefully to quit the file without saving
+:wq ------> To quit a file after adding new content in it
+:wq! ------> Forcefully to quit a file and save it after adding content in it.
+
+
+vim additional commands:-
+==========================
+
+:set nu ------> To give numbering to lines in a file
+:set nonu -----> To remove numbering to lines in a file
+:/word  -----> To search a word from top
+:?word -----> To search a word from bottom
+:noh  ------> Unhilate the word
+:s/<word to replace>/<word-name> ----> to replace a word in a line where curser is
+:%s/<word to replace>/<word-name> ----> to replace a word in a every line but first word only
+:%s/<word to replace>/<word-name>/g ----> to replace a word in a every line in afile
+shift+g  ------> To go to the bottom line directly
+gg  -----> To got top line of the file directly
+dd ------> To delete a line
+:%d ------> To delete whole content form a file
+yy ------> To copy a line
+p  ------> To paste the copied line
+<any-num>p -----> To paste the line required no of times.
  
 
 
