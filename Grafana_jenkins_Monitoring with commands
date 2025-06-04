@@ -55,7 +55,7 @@ Installation Process :-
      sudo systemctl start prometheus
      sudo systemctl enable prometheus
 
-search the metrics <jenkins-ip:9323(prometheus metrics run port)>
+search the metrics <jenkins-ip:9323/metrics(prometheus metrics run port)>
 
 
 3. Grafana Server Setup
