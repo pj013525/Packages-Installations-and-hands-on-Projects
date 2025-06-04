@@ -1,0 +1,59 @@
+File/Directory Permissions :-
+=================================
+
+r  ------>  read permission          =====> 4 in number
+w  ------>  write permission         =====> 2 in number
+x  ------>  execute permission       =====> 1 in number
+rwx   =  4+2+1   =  7
+rw    =  4+2     =  6
+rx    =  4+1     =  5
+wx    =  2+1     =  3
+
+A file/ directory has a User, group, other as default
+Umask is 022 as default
+A file has 644(-rw-r--r--) permissions as default
+A Directory has 755(drwxr-xr-x) permissions as default
+
+chmod 777 <file/dire> ------> To give rwx permissions to user,group,other
+chmod rwx+u <file/dire> -----> To give rwx permissions to user
+chmod w-u <file/dire> -----> To remove write permission to user
+chmod -R 777 <dire>  -----> To give rwx permissions to dire along with a file in it
+
+
+
+User and Group Management:-
+===============================
+
+useradd <name>  ------> To create a new user
+id <name> -------> To display the user id and primary group and secondary group
+cat /etc/passwd ------> To display all the users
+passwd <name> ------> To create a passwd for th user
+cat /etc/shadow ------> To show whether the user have password or not
+getent group ------> To display all the groups along with group-id's
+groupadd <group-name>  ------> To create a new group
+
+
+usermod -u <new-id> <user> ------> To change the user id 
+EX:- usermod -u (new-id:-1111) PJ
+
+usermod -l <new-name> <old-name> -----> To change user name
+EX:- usermod -l (new-name:-Vijay) PJ
+
+groupmod -g <new-id> <group-name> -----> To change the group id
+EX:- groupmod -g (new-id:-1122) devops
+
+groupmod -n <new-name> <old-name> ----> To change the primary group name of a user
+usermod -aG <new-name> <user> ------> To change the secondary groupname of a user
+gpasswd -d <user> <secondry-group> ------> To remove user from the secondary group
+
+userdel <user> ------> To delete user but not user home dire
+userdel -r <user> ------> To delete user and his home dire at once
+
+
+
+File/Directory Ownership:-
+============================
+
+chown user:group <File/Dire> ------> To change the ownership of a empty file or Directory
+chown -R user:group <Dire>  ------> To change the ownership of a Directory and a file in it at once
+
