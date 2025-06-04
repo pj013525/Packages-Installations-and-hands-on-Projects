@@ -1,0 +1,9 @@
+Cluster  ------>  combination of Master and Worker nodes 
+kubectl get nodes  ------> To list the all the nodes in a cluster
+kubectl apply -f <manifest.yml>  ------>  To apply th manifest
+kubectl get pods  ----> To get the pods in a cluster
+kubectl get pods -o wide -----> To get the metadata of the pods
+kubectl get svc  -----> To get the services in a Cluster
+kubectl get deploy  -----> To get the deployments in a Cluster
+kubectl get ingress  -----> To get the ingresses in a Cluster
+kubectl get   -----> To get the  in a Cluster
