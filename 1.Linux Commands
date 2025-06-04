@@ -14,7 +14,10 @@ ll -at   ------> To show the metadata of hidden files and dirc's from recent to 
 ll -atr  ----->  To show the metadata of hidden files and dirc's from old to recent
 date  ------> To get date 
 uptime ------> To know the system running time without resting
+env or printenv -----> to list the system variable and values
 history  ------> To show the commands used
+echo $HISTSIZE=1000 -----> To show the history limit
+export HISTSIZE=<NUMBER>  ------> To change the history limit 
 lsblk -----> To check the storage in the disc of an VM
 whoami ------> To know the current user
 hostname ------>  To show the host of the VM
