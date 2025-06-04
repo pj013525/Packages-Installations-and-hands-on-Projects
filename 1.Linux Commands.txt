@@ -25,8 +25,9 @@ wc -m <file>  ------> To show the total no of characters in a file
 
 
 mkdir <folder> ------>  To create a empty direcctory
+mkdir <folder-{1..n}> -----> To create n no of directories at once
 touch <file>  ------>  To create a empty file
-touch <file{1..n}>  -----> To create n no of files at once
+touch <file-{1..n}>  -----> To create n no of files at once
 cat <filename>  -----> To read the content in a file
 cat -n <file> -----> To give numbers to lines in a file
 cat <file1><file2> > <file3> ------> To copy file1 and file2 ontent into file3 
