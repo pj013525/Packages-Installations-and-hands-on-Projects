@@ -12,6 +12,8 @@ ll    ------> To view the files and directories in long form with metadata
 ll -a ------>  To view the hidden files and directories in long form
 ll -at   ------> To show the metadata of hidden files and dirc's from recent to old
 ll -atr  ----->  To show the metadata of hidden files and dirc's from old to recent
+date  ------> To get date 
+uptime ------> To know the system running time without resting
 history  ------> To show the commands used
 lsblk -----> To check the storage in the disc of an VM
 whoami ------> To know the current user
@@ -55,6 +57,8 @@ grep -i <word> <file/dire>  ------> To show the word in a file/dire irrespective
 ll | grep ^- -----> To list all the files in a current path
 ll | grep ^d  ----> To list all the directories in a current path
 cat <file> | grep <word>  ------> To search a word in  file using pipe symbol
+df -h  -----> To know the disk space used by File system
+du -h -----> To know the space user by files and directories
 
 
 find <path> -name <fiel/dire>  -----> To find a file or dire in a current path
