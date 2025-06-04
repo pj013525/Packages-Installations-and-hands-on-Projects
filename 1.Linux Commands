@@ -82,12 +82,12 @@ wget <url> -----> To download a package from the internet to the VM
 curl <url> -----> To download the context from a file directly into VM
 
 
-vim/vi/nano:-
-===============
+vim/vi/nano commands:-
+==========================
 
 vim <file> -----> To create and add a content in a new file and to edit a file
 press "i" ------>  to insert content in to the file
-esc and : ------> To stop the editing the file
+esc and : ------> To stop the editing of a file
 :q  ------> To quit the file if not changed any thing
 :q! ------> Forcefully to quit the file without saving
 :wq ------> To quit a file after adding new content in it
@@ -101,10 +101,10 @@ vim additional commands:-
 :set nonu -----> To remove numbering to lines in a file
 :/word  -----> To search a word from top
 :?word -----> To search a word from bottom
-:noh  ------> Unhilate the word
+:noh  ------> Unhighlight the word
 :s/<word to replace>/<word-name> ----> to replace a word in a line where curser is
 :%s/<word to replace>/<word-name> ----> to replace a word in a every line but first word only
-:%s/<word to replace>/<word-name>/g ----> to replace a word in a every line in afile
+:%s/<word to replace>/<word-name>/g ----> to replace a word in a every line in a file
 shift+g  ------> To go to the bottom line directly
 gg  -----> To got top line of the file directly
 dd ------> To delete a line
