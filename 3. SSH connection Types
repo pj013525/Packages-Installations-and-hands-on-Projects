@@ -1,0 +1,33 @@
+SSH connectios 
+===================
+
+Type-1:- SSH connection through password
+---------------------------------------------
+useradd -m <user>
+passwd <user>
+now edit the sshd_config file 
+   ==> vim /etc/ssh/sshd_config
+        --> make passwodAuthentication yes
+Now restart the sshd service
+   ==> service sshd restart
+Now share the username , password, public-IP to the new user
+    ==>  ssh <user>@<public-IP>     and enter password
+
+
+Type-2:- SSH connecction through keys
+-----------------------------------------
+useradd -m <user>
+cd /home/<user>
+mkdir .ssh
+Now enter into this .ssh directory and create authorized_keys file in it
+  ==> cd .ssh
+  ==> touch authorized_keys
+Now sk new user to open a terminal and generate keys in it
+  ==> ssh-keygen -t rsa -b 4096
+Now copy this .pub key ani paste it in the authorized_keys file and save
+Now change permissions and ownership for this .ssh and authorized-keys
+     ==> chmod -R 700 .ssh
+     ==> chown -R <user>:<group> .ssh
+Now ask the user to login through
+  ===> ssh -i .pem key <user>@<IP_address>
+Then the login is successful using the SSH connection though keys.
