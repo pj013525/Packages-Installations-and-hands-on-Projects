@@ -9,7 +9,7 @@ Git is a free tool and is used as a version control system and it ws develpoed n
 It helps in tracking the changes and show who push the code to remote repository
 It is also help in maintaining the code and helps the developers to develope in their local system individually without any disturbance to others
 
-Go to browser and https://github.com/git-for-windows/git/releases/download/v2.49.0.windows.1/Git-2.49.0-64-bit.exe and install git 
+Go to browser and (https://github.com/git-for-windows/git/releases/download/v2.49.0.windows.1/Git-2.49.0-64-bit.exe) and install git 
 
 It has 3stages:-
 
@@ -18,8 +18,13 @@ Working area -----> Where developer write the code
 staging area  -----> Where code push to the local repository
     ↓ --> git commit -m "any message"
 Local repository  -----> Where we push the code to remote repository
-    ↓ --> git push origin 
+    ↓ --> git push -u origin <branch>
 Remote repository -----> Where we store the and mnage the code
+
+=========================================================================================================
+git remote set-url origin https://<token>@github.com/<github-user>/<repo-name>  for https connection    |
+=========================================================================================================
+
 git status ----> To check the status of the files
 git logs ----> To see the logs in the local repository
 
