@@ -1,8 +1,19 @@
+Intoduction:-
+==================
+
 What is shell?
-Shell is nothing but a interpreter between user and kernel
+Shell is nothing but a interpreter between user and OS kernel by taking commands from the user and sending them to the OS kernel.
+
+
+To list the Types of shells configured in your system ===> cat /etc/shells
+Defult Shell ===> BASH (Bourne Again Shell)
+To know your current shell  =====> echo $0
+To change shell =====> /bin/<shell name>
+
 
 What is scripting?
-Scripting is set of ocmmands to perform a task
+Scripting is set of commands to perform a task
+
 
 What is shell scripting
 It is a file with set of commands to perform from top to bottom to complete a task 
@@ -12,3 +23,50 @@ It is run using
    ==> ./script.sh
         ==> chmod +x script.sh
    ==> bash script.sh
+
+
+Why to use shell scripting? 
+It is used to automate the manual work which we need to perfom on daily bases.
+
+
+Debug in shell scripting
+===========================
+It is nothing but showing the command along with the output while running a file
+sh -x <filename.sh>
+
+A shell script is always starts with shebang (#!/bin/bash)
+Shebang is the first line write in a script and it will give the OS to use which type of interpreter should be used.
+
+
+Comments in a Shell Scipt
+===============================
+Comment is used to tell why we used a command
+It is neglected by the shell and will not get execucted
+
+Types:-
+===========
+
+Single-Line comment :-
+------------------------
+It is making a single line not to execute by adding an "# symbol" at the starting
+EX:- #This line is writing to print today date
+      echo "Today date is: $(date)"
+
+In-Line comment :-
+--------------------
+It is used to tell why we used a particular command after the command is given
+EX:- echo "$(pwd)"   #This will giveme the present working directory
+
+Multi-Line Comment:-
+----------------------
+It is making multiple lines not to work in a file while execution of a script
+<<(<any comment>)  (<< starting and ending comment should be same)
+echo "this is new"
+pwd
+date
+<anycomment>      (same as above comment after <<)
+
+
+
+
+
