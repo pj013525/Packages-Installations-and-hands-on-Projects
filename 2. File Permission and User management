@@ -50,6 +50,24 @@ userdel <user> ------> To delete user but not user home dire
 userdel -r <user> ------> To delete user and his home dire at once
 
 
+For custom user name , id , group-id, comment all at once
+-----------------------------------------------------------
+
+groupadd -g <any-id> <any-name>
+
+useradd -u <any-id> -g <any-id> -c " ant-message" -m <any-name>
+
+
+
+Root/sudo permissions to User
+===============================
+To give root/sudo permission to a user first go to sudoers file
+  ====> vim /etc/sudoers     or     visudo
+Now under root add user  and save(:wq)
+ under ---> root    ALL=(ALL)       ALL
+            <user>  ALL=(ALL)       NOPASSWD: ALL      
+ 
+
 
 File/Directory Ownership:-
 ============================
