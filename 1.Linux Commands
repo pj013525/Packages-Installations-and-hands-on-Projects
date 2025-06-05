@@ -74,6 +74,7 @@ find <path> -type(file/dire) -name "*.exte-name" -----> To find a filre or dire 
 find <path> -type (file/dire) -empty ------> To find an empty file or dire in a path
 
 
+sleep <number>   ------>  to stop the working of the screen for certain time
 cut -c <req-characte> <file> ------> To show the characters based on required number in a file
 cut -d < > -f <words range> <file> -----> to show the words after delimiter in a file
 
@@ -112,6 +113,19 @@ dd ------> To delete a line
 yy ------> To copy a line
 p  ------> To paste the copied line
 <any-num>p -----> To paste the line required no of times.
+
+
+
+Process Status(ps) Command:-
+=================================
+
+ps      ------->  To show all services process id 
+ps -ef  ------->  To show all sevices process-id along with their Parent-id
+ps -ef | grep <sevicename/pid> -----> To get specific service running or not
+kill pid  ----->  To kill a process      (requires sudo permissions)
+kill -9 pid ---->  To kill a process forcefully
+top  ------> Live updates of running process
+
  
 
 
