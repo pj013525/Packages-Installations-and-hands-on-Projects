@@ -22,6 +22,7 @@ lsblk -----> To check the storage in the disc of an VM
 whoami ------> To know the current user
 hostname ------>  To show the host of the VM
 hostnamectl set-hostname <name> -----> To change the hostname of a VM
+stat <file> ------> To see if any changes 
 
 
 wc -l <file>  ------> To show the total no of lines in a file
@@ -93,6 +94,7 @@ esc and : ------> To stop the editing of a file
 :q! ------> Forcefully to quit the file without saving
 :wq ------> To quit a file after adding new content in it
 :wq! ------> Forcefully to quit a file and save it after adding content in it.
+stat <file> -----> To see if any changes happen in or to metadata of a file
 
 
 vim additional commands:-
