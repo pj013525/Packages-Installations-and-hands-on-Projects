@@ -1,29 +1,50 @@
-# Welcome to this repository!
+# Padmarao Jonna's DevOps Space 🚀
 
-Any project integrates various modern DevOps tools and practices.  
-Below is a list of  some of the essential tools used in the projects, with **small logos** and a **brief description**.
+🧑‍💻 **AWS | DevOps | 
+
+Cloud & DevOps Engineer with hands-on experience in real-world projects!
 
 ---
 
-### 🚀 Tools and Technologies Used
+## 📌 About Me
 
-| Tool               | Description                              | Logo |
-|--------------------|------------------------------------------|------|
-| **Git**            | Distributed version control system       | <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="40"/> |
-| **GitHub**         | Hosting platform for Git repositories    | <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40"/> |
-| **Jenkins**        | Automation server for CI/CD              | <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.png" width="40"/> |
-| **Maven**          | Project build and dependency tool        | <img src="https://maven.apache.org/images/maven-logo-black-on-white.png" width="60"/> |
-| **Nexus**          | Artifact repository manager              | <img src="https://miro.medium.com/v2/resize:fit:600/0*8uPCAUcrOjC4Hvxd.jpg" width="60"/> |
-| **Trivy**          | Security scanner for containers & code   | <img src="https://miro.medium.com/v2/resize:fit:266/1*4kAaqUfUWKZVP1qtspKJjg.png" width="40"/> |
-| **SonarQube**      | Code quality and security analyzer       | <img src="https://cdn.worldvectorlogo.com/logos/sonarqube.svg" width="60"/> |
-| **Docker**         | Containerization platform                | <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" width="40"/> |
-| **OWASP**          | Security standards for web apps          | <img src="https://owasp.org/assets/images/logo.png" width="40"/> |
-| **Kubernetes**     | Container orchestration system           | <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg" width="40"/> |
-| **Tomcat**         | Java servlet container and web server    | <img src="https://tomcat.apache.org/res/images/tomcat.png" width="40"/> |
-| **Shell Scripting**| Automating system admin tasks            | <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg" width="40"/> |
-| **Python**         | Automation and scripting for DevOps      | <img src="https://www.python.org/static/community_logos/python-logo.png" width="60"/> |
-| **Nginx**          | Web server and reverse proxy             | <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" width="60"/> |
-| **Jira**           | Agile project management tool            | <img src="https://1000logos.net/wp-content/uploads/2021/05/Atlassian-Logo-2010s1.png" width="60"/> |
-| **Scrum**          | Agile team collaboration framework       | <img src="https://miro.medium.com/v2/resize:fit:400/0*KpzqUReoWU_DEwb5.png" width="40"/> |
+- 🎓 DevOps Engineer | 
+- 🌟 Passionate about upskilling for top tech jobs
+
+---
+
+## 🧰 My Tech Stack
+
+<p align="center">
+  <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AZURE-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white"/>
+  <img src="https://img.shields.io/badge/GCP-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white"/>
+  <img src="https://img.shields.io/badge/GIT-F05032?style=for-the-badge&logo=git&logoColor=white"/>
+  <img src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=github&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JENKINS-D24939?style=for-the-badge&logo=jenkins&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MAVEN-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white"/>
+  <img src="https://img.shields.io/badge/NEXUS-000000?style=for-the-badge&logo=sonatype&logoColor=white"/>
+  <img src="https://img.shields.io/badge/DOCKER-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/KUBERNETES-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/>
+  <img src="https://img.shields.io/badge/ANSIBLE-EE0000?style=for-the-badge&logo=ansible&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TERRAFORM-623CE4?style=for-the-badge&logo=terraform&logoColor=white"/>
+  <img src="https://img.shields.io/badge/SONARQUBE-4E9BCD?style=for-the-badge&logo=sonarqube&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TRIVY-5DADE2?style=for-the-badge&logo=containers&logoColor=white"/>
+  <img src="https://img.shields.io/badge/OWASP-000000?style=for-the-badge&logo=owasp&logoColor=white"/>
+  <img src="https://img.shields.io/badge/PROMETHEUS-E6522C?style=for-the-badge&logo=prometheus&logoColor=white"/>
+  <img src="https://img.shields.io/badge/GRAFANA-F46800?style=for-the-badge&logo=grafana&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TOMCAT-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black"/>
+  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JIRA-0052CC?style=for-the-badge&logo=jira&logoColor=white"/>
+  <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MACHINE LEARNING-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white"/>
+</p>
+
+---
+
+## 🤝 Connect With Me
+
+[![Gmail](https://img.shields.io/badge/Gmail-Contact%20Me-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/your-profile)
 
 ---
