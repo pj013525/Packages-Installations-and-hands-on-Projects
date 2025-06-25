@@ -23,7 +23,7 @@ Welcome to this repository! This project integrates various modern DevOps tools 
 | **Python for DevOps** | Automation and scripting language | <img src="https://www.python.org/static/community_logos/python-logo.png" width="60"/> |
 | **Nginx** | Web server and reverse proxy | <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" width="60"/> |
 | **Apache** | Open-source HTTP server | <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Apache_Software_Foundation_Logo.svg" width="80"/> |
-| **Jira** | Agile project management tool | <img src="https://wac-cdn.atlassian.com/dam/jcr:623c69e1-1c56-4bb9-9303-1fc6db5e18a4/Jira%20Software_800x800@2x.png" width="40"/> |
+| **Jira** | Agile project management tool | https://www.google.com/imgres?q=jira%20logo&imgurl=https%3A%2F%2F1000logos.net%2Fwp-content%2Fuploads%2F2021%2F05%2FAtlassian-Logo-2010s1.png&imgrefurl=https%3A%2F%2F1000logos.net%2Fjira-logo%2F&docid=o--l4lBcwESXFM&tbnid=ahkJHkw7-PrWxM&vet=12ahUKEwjprP2Ly4yOAxX5wjgGHUOILwsQM3oECF0QAA..i&w=1200&h=814&hcb=2&ved=2ahUKEwjprP2Ly4yOAxX5wjgGHUOILwsQM3oECF0QAA |
 | **Scrum** | Agile framework for team collaboration | <img src="https://www.scrum.org/themes/custom/scrumorg/assets/images/scrum-org-logo.svg" width="80"/> |
 
 ---
