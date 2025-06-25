@@ -1,21 +1,21 @@
 pipeline script
 ----------------
 
-Install the follwoing plugins
+Install the following plugins
 
-   ==> Pipeline stageview :- To view the build stages clearly
+   ==> Pipeline stage view:- To view the build stages clearly
    
-   ==> Deploy to container :- To deploy the atifacts in to Containers
+   ==> Deploy to container:- To deploy the artifacts into Containers
    
    ==> S3 publisher :- To Store the Artifacts into S3 bucket
    
-   ==> nexus artifact uploader :- To store the artifacts into the Artifactory Repository (Nexus)
+   ==> nexus artifact uploader:- To store the artifacts into the Artifactory Repository (Nexus)
    
    ==> SonarQube Scanner :- To Scan the code
    
-   ==> Sonar Quality Gate :- To check the quality of Code
+   ==> Sonar Quality Gate:- To check the quality of the Code
    
-   ==> Maven Integration :- To build the code thtorugh maven goals
+   ==> Maven Integration:- To build the code through the Maven goals
    
    
    
@@ -26,7 +26,7 @@ SETUP TOMCAT CREDS IN JENKINS
 Tomcat Credentials in Jenkins
 -------------------------------
 
-Plugin required:- Deploy to container ==> To deploy the atifacts in to Containers
+Plugin required:- Deploy to container ==> To deploy the artifacts into Containers
 
 
 Jenkins ---->  Manage Jenkins ---->  Security ---->  Credentials ---->  Click on 'global' ----> 
@@ -37,7 +37,7 @@ Add credentials ---->  Kind: Username with Password, Scope: Global,
  
  
  
-Create pipeline job
+Create a pipeline job
 
 Repo URL:  (HOTSTAR App)
 
@@ -45,22 +45,22 @@ Repo URL:  (HOTSTAR App)
 Tomcat PIPELINE SCRIPT:-
 ---------------------------
 
-For the stage 'Deploy to Tomcat' generate the pipeline syntax;
+For the stage 'Deploy to Tomcat', generate the pipeline syntax;
 
 Open Pipeline Syntax in new tab ----> Sample step: deploy: Deploy war/ear to a container, WAR/EAR Files: **/*.war,
 
- Context Path: hotstarapp, Add container: Select 'Tomcat 9.x Remote', Credentials: Select the tomcat creds,
+ Context Path: hotstarapp, Add container: Select 'Tomcat 9.x Remote', Credentials: Select the tomcat creds.
 
-  Tomcat URL: Paste upto 8080/ ----> Generate pipeline script ----> Copy and paste in 'Deploy to Tomcat' stage
+  Tomcat URL: Paste up to 8080/ ----> Generate pipeline script ----> Copy and paste in 'Deploy to Tomcat' stage
   
-Paste the script;
+Paste the script.
 
 
 
 
 
 
-LETS PUSH THE ARTIFACT TO S3 BUCKET :-
+LET'S PUSH THE ARTIFACT TO S3 BUCKET:-
 ---------------------------------------------
 
 
@@ -78,21 +78,19 @@ AWS S3 bucket Credentials in Jenkins
 Plugin required:-  S3 publisher ==> To Store the Artifacts into S3 bucket
 
 
-Lets configure access keys in jenkins ----> Manage jenkins ----> System Configuration ----> System
+Let's configure access keys in Jenkins ----> Manage Jenkins ----> System Configuration ----> System
   
  ----> Scroll down to "Amazon S3 Profiles" ----> Add ----> Profile name: s3creds, Access key: <PasteAccessKey>, 
  
  Secret key: <PasteSecretKey> ----> Apply ---->  Save  
  
  
- AKIAUQ4L26CXWVFCZTP4
- EWXYBDvYmtMBru44nJ/YfwrOWUwnWgEpVwFvqW0H
- 
+
  
 AWS S3 bucket PIPELINE SCRIPT:-
 ----------------------------------
 
-Open the job created ----> Open pipeline syntax (here we will generate script to push artifacts to S3)
+Open the job created ----> Open pipeline syntax (here we will generate a script to push artifacts to S3)
 
   ----> Sample step: S3upload: Publish artifacts to S3 bucket, S3 profile: s3creds, Files to upload: **/*.war, 
   
@@ -103,7 +101,6 @@ Open the job created ----> Open pipeline syntax (here we will generate script to
   
   
   
- 8d7a3b1e1e6b28843f466d4cccd3eaca1f98a875
   
 
 WORKING WITH SONARQUBE
@@ -119,9 +116,9 @@ Go to SonarQube ----> Projects ----> Add project ----> Manually ----> Project ke
 SonarQube Credentials in Jenkins
 --------------------------------------
 
-Plugins required :- SonarQube Scanner ==> To Scan the code
+Plugins required:- SonarQube Scanner ==> To scan the code
    
-                    Sonar Quality Gate ==> To check the quality of Code
+                    Sonar Quality Gate ==> To check the quality of the code
 					
 
 Jenkins ----> Manage Jenkins ----> Security ----> Credentials ----> Click on 'global' ----> Add creds 
@@ -148,7 +145,7 @@ Jenkins ----> Manage Jenkins ----> System Configuration ----> Tools ----> Scroll
   
    
 
-Lets integrate SonarQube in the pipeline ----> Open the job ----> Paste the below script (In the script, i have added sonarqube-scanning' stage before the artifacts stage)
+Lets integrate SonarQube in the pipeline ----> Open the job ----> Paste the below script (In the script, I have added sonarqube-scanning stage before the artifacts stage)
 
 
 
@@ -156,10 +153,10 @@ Lets integrate SonarQube in the pipeline ----> Open the job ----> Paste the belo
 
 
 
-NEXUS CONFIGURATION :-
+NEXUS CONFIGURATION:-
 --------------------------
 
-Goto Nexus tab in browser ----> Signin ----> Username: admin, To get the password, copy the path seen in the nexus browser 
+Go to the Nexus tab in the browser ----> Sign in ----> Username: admin, To get the password, copy the path seen in the Nexus browser 
  
  ----> Goto the nexus connected tab in Moba ----> cat <Paste The Path> ----> Copy the password. ----> Paste the 
  
@@ -173,14 +170,14 @@ Click on settings icon ----> Click on 'repositories' ----> Create repo ----> Scr
  
  default, Deployment policy: Allow redeploy ----> Create repository ----> You will see 'hotstar' repo 
  
- ----> Lets configure the Nexus credentials in Jenkins
+ ----> Let's configure the Nexus credentials in Jenkins
  
  
   
 Nexus Credentials in Jenkins
 ------------------------------
 
-Plugin Required :- nexus artifact uploader ==> To store the artifacts into the Artifactory Repository (Nexus)
+Plugin Required:- nexus artifact uploader ==> To store the artifacts into the Artifactory Repository (Nexus)
 
 
 Jenkins ----> Manage Jenkins ----> Security ----> Credentials ----> Click on 'global' ----> Add creds
@@ -191,25 +188,25 @@ Jenkins ----> Manage Jenkins ----> Security ----> Credentials ----> Click on 'gl
  
  
  
-Nexus PIPELNE SCRIPT:-
+Nexus PIPELINE SCRIPT:-
 ----------------------
 
-Lets integrate Nexus in the pipeline ----> Open the job ----> Open pipeline syntax in new tab 
+Let's integrate Nexus in the pipeline ----> Open the job ----> Open pipeline syntax in a new tab 
 
 ----> Sample step: nexusArtifactUploader: Nexus Artifact Uploader, Nexus Version: Nexus3, Protocol: HTTP,
 
  Nexus URL: <Paste The Nexus URL> [Ex: IP:8081], Credentials: Select 'nexus' from dropdown, GroupId: in.kastro 
  
- (this is in pom.xml file), Version: 8.3.3-Snapshot (this is in pom.xml file), Repository: hotstar 
+ (this is in pom.xml file), Version: 8.3.3-Snapshot (this is in the pom.xml file), Repository: hotstar 
  
- (This name should be same as created in the Nexus console), Artifacts: Add: Artifact ID: myapp (this is in pom.xml file),
+ (This name should be the same as created in the Nexus console), Artifacts: Add: Artifact ID: myapp (this is in pom.xml file),
  
  Type: .war, Classifier: <Leave Blank>, File: target/myapp.war (Note: here instead of path, we can also mention **/*.war)
  
- ----> Generate script ----> Copy the script and paste in the below pipeline stage of 'Nexus'
+ ----> Generate script ----> Copy the script and paste it in the below pipeline stage of 'Nexus'
  
  
-Paste the below script (In the script, i have added 'Nexus' stage after the Tomcat stage) 
+Paste the below script (In the script, I have added 'Nexus' stage after the Tomcat stage) 
 
 
 
@@ -217,55 +214,55 @@ Paste the below script (In the script, i have added 'Nexus' stage after the Tomc
 Master and Slave Nodes:-
 ----------------------------
 
-Master node is nothing but a VM which performs the builds in jenkins pipeline and
- Slave node is nothing but a VM which is used to store the jobs results in it 
+The master node is nothing but a VM that performs the builds in the Jenkins pipeline and
+ Slave node is nothing but a VM that is used to store the job's results in it 
  
 
-Master node  requires Tomacat,maven,git,java-17,jenkins,nexus,sonarqube....
- Slave node requires only git, java-17, maven
+Master node  requires Tomcat, maven, git, Java-17, Jenkins, nexus,sonarqube....
+ Slave node requires only git, Java 17, Maven
  
 
-We use SSH Protocal to connect this Master node with the Slave node(s) in Jenkins.
+We use the SSH Protocol to connect the Master node with the Slave node(s) in Jenkins.
 
 
  
  
-Lets configure the Slave Nodes in Jenkins dashboard
+Let's configure the Slave Nodes in Jthe enkins dashboard
 -------------------------------------------------------
 
 
-Adding Slave 1 in Jenkins dashboard
+Adding Slave 1 to the Jenkins dashboard
 ---------------------------------------
 
-Jenkins dashboard ----> Build executor status (left pane bottom) ----> Currently you will "Built-in node" 
+Jenkins dashboard ----> Build executor status (left pane bottom) ----> Currently, you will see "Built-in node" 
  
  which means it is a MASTER node ----> Click on "New Node" ----> Node name: slave1, Type: Permanent Agent 
  
  ----> Create ----> Name: slave1 ----> Description: This is Slave 1 ----> No. of executors: 3 (this is to run 
  
-  number of builds parallelly) ----> Remote root directory: /tmp (In this path of slave nodes, the builds will 
+  number of builds in parallel) ----> Remote root directory: /tmp (In this path of slave nodes, the builds will 
   
   be stored) ----> Labels: slave1 (This label name is very important because this label name is the same name we
 
-  should configure in the pipeline script. Based on this only, the job will get executed on whichever worker node
+  should be configured in the pipeline script. Based on this only, the job will get executed on whichever worker node
 
-  we want) ----> Usage: Only build jobs with label expressions matching this node ----> Launch method: Launch 
+  We want) ----> Usage: Only build jobs with label expressions matching this node ----> Launch method: Launch 
   
   agents via SSH ----> Host: <PrivateIPofSlave1> ----> Credentials: Add: Jenkins ----> Scope: Global, Kind: SSH 
   
-  username with private key, Scope: Global, ID: <Leave Blank> ,Description: <Leave Blank>, Username: ec2-user,
+  username with private key, Scope: Global, ID: <Leave Blank> , Description: <Leave Blank>, Username: ec2-user,
 
-  Private key: Enter directly: Paste the entire content from pem file which is used to launch worker node 1 
+  Private key: Enter directly: Paste the entire content from the pem file, which is used to launch worker node 1 
   
   ----> Save ----> From the dropdown, select "ec2-user" ----> Host key verification strategy: Non verifying 
   
   verification strategy ----> Availability: Keep this agent online as much as possible ----> Save ----> 
   
-  You can see Slave1 got added. Just refresh, you will see the values under free disk space, free temp space and
+  You can see Slave1 got added. Just refresh, you will see the values under free disk space, free temp space, and
 
-  other options available.
+  Other options are available.
   
-This is the configuration of master and slave.
+This is the configuration of the master and slave.
 
 
   
