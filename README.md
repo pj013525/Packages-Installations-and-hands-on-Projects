@@ -23,7 +23,6 @@ Below is a list of essential tools used in this project, with **small logos** an
 | **Shell Scripting**| Automating system admin tasks            | <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg" width="40"/> |
 | **Python**         | Automation and scripting for DevOps      | <img src="https://www.python.org/static/community_logos/python-logo.png" width="60"/> |
 | **Nginx**          | Web server and reverse proxy             | <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" width="60"/> |
-| **Apache**         | Open-source HTTP server                  | <img src="https://images.seeklogo.com/logo-png/31/2/apache-logo-png_seeklogo-314278.png" width="60"/> |
 | **Jira**           | Agile project management tool            | <img src="https://1000logos.net/wp-content/uploads/2021/05/Atlassian-Logo-2010s1.png" width="60"/> |
 | **Scrum**          | Agile team collaboration framework       | <img src="https://miro.medium.com/v2/resize:fit:400/0*KpzqUReoWU_DEwb5.png" width="40"/> |
 
