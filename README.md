@@ -35,6 +35,7 @@ Cloud & DevOps Engineer with hands-on experience in real-world projects!
   <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white"/>
   <img src="https://img.shields.io/badge/JIRA-0052CC?style=for-the-badge&logo=jira&logoColor=white"/>
   <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/SCRUM-6DB33F?style=for-the-badge&logo=agile&logoColor=white"/>
 </p>
 
 ---
