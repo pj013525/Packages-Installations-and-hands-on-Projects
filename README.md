@@ -1,7 +1,7 @@
 # Welcome to this repository!
 
-This project integrates various modern DevOps tools and practices.  
-Below is a list of essential tools used in this project, with **small logos** and a **brief description**.
+Any project integrates various modern DevOps tools and practices.  
+Below is a list of  some of the essential tools used in the projects, with **small logos** and a **brief description**.
 
 ---
 
@@ -25,10 +25,5 @@ Below is a list of essential tools used in this project, with **small logos** an
 | **Nginx**          | Web server and reverse proxy             | <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" width="60"/> |
 | **Jira**           | Agile project management tool            | <img src="https://1000logos.net/wp-content/uploads/2021/05/Atlassian-Logo-2010s1.png" width="60"/> |
 | **Scrum**          | Agile team collaboration framework       | <img src="https://miro.medium.com/v2/resize:fit:400/0*KpzqUReoWU_DEwb5.png" width="40"/> |
-
----
-
-✅ **Note**: Logos are scaled down for clean and readable formatting.  
-You can further modify this table or add sections based on your project workflow.
 
 ---
