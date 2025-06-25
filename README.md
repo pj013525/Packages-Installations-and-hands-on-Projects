@@ -8,7 +8,7 @@ Cloud & DevOps Engineer with hands-on experience in real-world projects!
 
 ## 📌 About Me
 
-- 🎓 DevOps Engineer | 
+- 🎓 DevOps Engineer |
 - 🌟 Passionate about upskilling for top tech jobs
 
 ---
