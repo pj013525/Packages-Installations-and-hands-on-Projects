@@ -1,116 +1,31 @@
-# 🚀 This is a Sample README.md File
+# This is a sample Read.me file
 
-Welcome to the DevOps Toolkit Sample Project! This README introduces popular tools and practices used in the modern DevOps lifecycle.
-
----
-
-## 🧰 Tools Covered
-
-### 🟦 Git
-![Git Logo](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png)
-> Distributed version control system for tracking changes in source code.
+Welcome to this repository! This project integrates various modern DevOps tools and practices. Below is a list of the essential tools used in this project, along with their respective icons and a brief overview.
 
 ---
 
-### 🟦 GitHub
-![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)
-> Cloud-based Git repository hosting and collaboration platform.
+### 🚀 Tools and Technologies Used
+
+| Tool | Description | Logo |
+|------|-------------|------|
+| **Git** | Distributed version control system | ![Git](https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png) |
+| **GitHub** | Hosting platform for Git repositories | ![GitHub](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png) |
+| **Jenkins** | Automation server for CI/CD | ![Jenkins](https://www.jenkins.io/images/logos/jenkins/jenkins.png) |
+| **Maven** | Project management and comprehension tool | ![Maven](https://maven.apache.org/images/maven-logo-black-on-white.png) |
+| **Nexus** | Artifact repository for Java and other packages | ![Nexus](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Sonatype_Nexus_Logo.png/240px-Sonatype_Nexus_Logo.png) |
+| **Trivy** | Security scanner for containers and filesystems | ![Trivy](https://aquasecurity.github.io/trivy-images/logo.png) |
+| **SonarQube** | Continuous inspection of code quality | ![SonarQube](https://www.sonarsource.com/logos/index/sonarqube-logo.png) |
+| **Docker** | Containerization platform | ![Docker](https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png) |
+| **OWASP** | Web application security project | ![OWASP](https://owasp.org/assets/images/logo.png) |
+| **Kubernetes** | Container orchestration platform | ![Kubernetes](https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg) |
+| **Tomcat** | Java servlet container | ![Tomcat](https://tomcat.apache.org/res/images/tomcat.png) |
+| **Shell Scripting** | Automating tasks on Unix systems | ![Shell](https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg) |
+| **Python for DevOps** | Automating infrastructure with Python | ![Python](https://www.python.org/static/community_logos/python-logo.png) |
+| **Nginx** | Web server and reverse proxy | ![Nginx](https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg) |
+| **Apache** | Open-source HTTP server | ![Apache](https://upload.wikimedia.org/wikipedia/commons/5/5f/Apache_Software_Foundation_Logo.svg) |
+| **Jira** | Agile project management tool | ![Jira](https://wac-cdn.atlassian.com/dam/jcr:623c69e1-1c56-4bb9-9303-1fc6db5e18a4/Jira%20Software_800x800@2x.png) |
+| **Scrum** | Agile framework for project management | ![Scrum](https://www.scrum.org/themes/custom/scrumorg/assets/images/scrum-org-logo.svg) |
 
 ---
 
-### 🟦 Jenkins
-![Jenkins Logo](https://www.jenkins.io/images/logos/jenkins/jenkins.png)
-> Automation server used to build, test, and deploy software.
 
----
-
-### 🟦 Maven
-![Maven Logo](https://upload.wikimedia.org/wikipedia/commons/5/52/Apache_Maven_logo.svg)
-> Build automation and dependency management tool for Java projects.
-
----
-
-### 🟦 Nexus
-![Nexus Logo](https://upload.wikimedia.org/wikipedia/commons/e/e0/Nexus_repository_manager_logo.png)
-> Repository manager to store and manage binaries, like `.jar`, `.war`, Docker images.
-
----
-
-### 🟦 Trivy
-![Trivy Logo](https://aquasecurity.github.io/trivy/images/trivy-logo.png)
-> Vulnerability scanner for containers and other artifacts.
-
----
-
-### 🟦 SonarQube
-![SonarQube Logo](https://www.sonarqube.org/logos/index/sq-logo.svg)
-> Continuous inspection of code quality and security.
-
----
-
-### 🟦 Docker
-![Docker Logo](https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png)
-> Platform for containerizing applications and running them in isolated environments.
-
----
-
-### 🟦 OWASP
-![OWASP Logo](https://owasp.org/assets/images/logo.svg)
-> Open-source community that provides tools and guidance on application security.
-
----
-
-### 🟦 Kubernetes
-![Kubernetes Logo](https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png)
-> Container orchestration system for automating deployment, scaling, and management.
-
----
-
-### 🟦 Tomcat
-![Tomcat Logo](https://tomcat.apache.org/res/images/tomcat.png)
-> Open-source Java Servlet Container developed by the Apache Software Foundation.
-
----
-
-### 🟦 Shell Scripting
-> Used for automating tasks in Unix/Linux environments.
-
----
-
-### 🟦 Python for DevOps
-> Python scripts are used for automation, monitoring, and infrastructure management.
-
----
-
-### 🟦 Nginx
-![Nginx Logo](https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg)
-> High-performance web server, reverse proxy, and load balancer.
-
----
-
-### 🟦 Apache
-![Apache Logo](https://upload.wikimedia.org/wikipedia/commons/5/5f/Apache_HTTP_server_logo_%282019-present%29.svg)
-> Popular open-source web server for hosting websites and applications.
-
----
-
-### 🟦 Jira
-![Jira Logo](https://wac-cdn.atlassian.com/dam/jcr:fc1c15f5-3714-4c06-82b0-20c4607a5325/jira%20logo%20blue.svg)
-> Agile project management tool for tracking tasks, bugs, and issues.
-
----
-
-### 🟦 Scrum
-> Framework for Agile software development that enables collaborative and iterative workflows.
-
----
-
-## 📘 License
-
-This project is for educational/demo purposes.
-
----
-
-## 📫 Contribute
-
-Feel free to fork this repo, open an issue, or submit a pull request! 🚀
