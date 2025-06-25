@@ -1,10 +1,6 @@
-# This is a sample Read.me file
+# 🚀 Tools and Technologies Used
 
 Welcome to this repository! This project integrates various modern DevOps tools and practices. Below is a list of essential tools used in this project, with small logos and a brief description.
-
----
-
-### 🚀 Tools and Technologies Used
 
 | Tool | Description | Logo |
 |------|-------------|------|
@@ -12,7 +8,7 @@ Welcome to this repository! This project integrates various modern DevOps tools 
 | **GitHub** | Hosting platform for Git repositories | <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40"/> |
 | **Jenkins** | Automation server for CI/CD | <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.png" width="40"/> |
 | **Maven** | Project build and dependency tool | <img src="https://maven.apache.org/images/maven-logo-black-on-white.png" width="60"/> |
-| **Nexus** | Artifact repository manager | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Sonatype_Nexus_Logo.png/240px-Sonatype_Nexus_Logo.png" width="60"/> |
+| **Nexus** | Artifact repository manager | <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Sonatype_Nexus_Logo.png" width="60"/> |
 | **Trivy** | Security scanner for containers and code | <img src="https://aquasecurity.github.io/trivy-images/logo.png" width="40"/> |
 | **SonarQube** | Code quality and security analyzer | <img src="https://www.sonarsource.com/logos/index/sonarqube-logo.png" width="80"/> |
 | **Docker** | Platform for building and running containers | <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" width="40"/> |
@@ -23,9 +19,5 @@ Welcome to this repository! This project integrates various modern DevOps tools 
 | **Python for DevOps** | Automation and scripting language | <img src="https://www.python.org/static/community_logos/python-logo.png" width="60"/> |
 | **Nginx** | Web server and reverse proxy | <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg" width="60"/> |
 | **Apache** | Open-source HTTP server | <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Apache_Software_Foundation_Logo.svg" width="80"/> |
-| **Jira** | Agile project management tool | https://www.google.com/imgres?q=jira%20logo&imgurl=https%3A%2F%2F1000logos.net%2Fwp-content%2Fuploads%2F2021%2F05%2FAtlassian-Logo-2010s1.png&imgrefurl=https%3A%2F%2F1000logos.net%2Fjira-logo%2F&docid=o--l4lBcwESXFM&tbnid=ahkJHkw7-PrWxM&vet=12ahUKEwjprP2Ly4yOAxX5wjgGHUOILwsQM3oECF0QAA..i&w=1200&h=814&hcb=2&ved=2ahUKEwjprP2Ly4yOAxX5wjgGHUOILwsQM3oECF0QAA |
-| **Scrum** | Agile framework for team collaboration | <img src="https://www.scrum.org/themes/custom/scrumorg/assets/images/scrum-org-logo.svg" width="80"/> |
-
----
-
-
+| **Jira** | Agile project management tool | <img src="https://1000logos.net/wp-content/uploads/2021/05/Atlassian-Logo-2010s1.png" width="60"/> |
+| **Scrum** | Agile framework for team collaboration | <img src="https://www.scrum.org/themes/custom/scrumorg/assets/images/scrum-org-logo.svg" width="60"/> |
