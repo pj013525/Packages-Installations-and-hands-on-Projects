@@ -48,8 +48,8 @@ Edit the hosts file:
    ====> Add the following:
 
              [ansiblegroup]
-             <Private-IP-of-Node1>
-             <Private-IP-of-Node2>
+             <Private-IP-of-Node1> ansible_user=PJ
+             <Private-IP-of-Node2> ansible_user=PJ
 
 
 
