@@ -1,16 +1,16 @@
-Ansible Installation :-
+Ansible Installation:-
 ---------------------------
 
-Ansible is a "Automation Tool"
+Ansible is an "Automation Tool."
 
 It is used to automate the work to reduce human time and errors
 
 It helps to simplify the manual work to automate 
 
-It has two components :- 1). Master (or) Controller
-                         2). Target servers (or) Managed Nodes
+It has two components:- 1). Master (or) Controller
+                         2) Target servers (or) Managed Nodes
 						 
-It is a idempotent which means no other installation needed in the Managed nodes
+It is an idempotent, which means no other installation is needed in the Managed nodes
 
 It is connected through SSH connections.						 
 
@@ -37,93 +37,118 @@ step1:-Install Ansible on Controller Node
    apt install ansible -y
    ansible --version
 
-3. Generate SSH Key (On Controller)
--------------------------------------------
- 
- ssh-keygen -t rsa -b 2048
- yes
- 3 times press enter
+# Step 2: Define Inventory (master Node)
+*******************************************
 
-4. Copy SSH Key Target Node
------------------------------------
-Attempted:
-ssh-copy-id ubuntu@target-private-IP
-Received error: Permission denied (publickey)
+Edit the hosts file:
+
+ ---> vi /etc/ansible/hosts
 
 
+   ====> Add the following:
 
-# Step 2: Define Inventory (controller Node)
-*********************************************
-
-5. Fix SSH Access to Target
-As root user on the target, run:
-------------------------------------
- mkdir -p /root/.ssh
- chmod 700 /root/.ssh
-
-6. From Controller node, copy the public key:
--------------------------------------------------
-    cat /root/.ssh/id_rsa.pub
-
-7. On the target, paste the key into authorized_keys:
------------------------------------------------------------
-    echo '<your-public-key>' >> /root/.ssh/authorized_keys
-    chmod 600 /root/.ssh/authorized_keys
-
-
-8. Test SSH from Controller node
-  --------------------------------
-   ssh root@<target-Private-IP>
+             [ansiblegroup]
+             <Private-IP-of-Node1>
+             <Private-IP-of-Node2>
 
 
 
-# Step 3: Configure SSH Settings (Enable Password Login)
+# Step 3: Create a User `PJ` in Master and Nodes
+*****************************************************
+
+On Master, Node1, and Node2:
+
+adduser PJ
+
+- Password: Pj@013525
+- Press Enter three times
+- Press `y`
+
+
+
+# Step 4: Configure SSH Settings (Enable Password Login)
 **************************************************************
 
-9. Create Ansible Inventory File in controller node
------------------------------------------------------
-Edit /etc/ansible/hosts and add:
-[targets]
-<target-Private-IP> ansible_user=root
+Edit SSH configuration in Master, Node1, Node2:
 
-10. Edit SSH configuration in controller, target nodes:
---------------------------------------------------------
+
+vi /etc/ssh/sshd_config
+
+
 Make the following changes:
- vim /etc/ssh/sshd_config
 
-    - Line 38: `PermitRootLogin yes`
-    - Line 43: Remove `#`
-    - Line 61: `PasswordAuthentication yes`
-    - Line 63: ` Add #`
+- Line 38: `PermitRootLogin yes`
+- Line 43: Remove `#`
+- Line 61: `PasswordAuthentication yes`
+- Line 63: ` Add #`
 
 
-11. For latest Ubuntu versions, edit:
------------------------------------------
+For latest Ubuntu versions, edit:  (not for AMAZON-LINUX)
+
 vi /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
 
 Change:
+
    ===> 'PasswordAuthentication yes'
 
 
-12. Now Restart SSH service:
---------------------------------
+Restart SSH service:
+
 service ssh restart
 
 
+# Step 5: Give `sudo` Permissions to `PJ`
+*******************************************
 
-# Step 4: Test Ansible Connection
+(Repeat for Node1 and Node2 also)
+
+Edit sudoers file:
+
+visudo
+
+
+Add at the end:
+
+PJ ALL=(ALL:ALL) NOPASSWD:ALL
+
+
+# Step 6: Setup SSH Trust (Passwordless SSH)
+***********************************************
+
+Switch to PJ user in Master:
+
+su - PJ
+
+
+Generate SSH Key:
+------------------
+
+ssh-keygen
+
+
+Copy key to Node1:
+
+ssh-copy-id PJ@<Private-IP-of-Node1>
+
+
+Copy key to Node2:
+
+ssh-copy-id PJ@<Private-IP-of-Node2>
+
+
+
+# Step 7: Test Ansible Connection
 **************************************
 
 Test connection from Master:
 
-ansible all -i /etc/ansible/hosts -m ping
+ansible all -i /etc/ansible/hosts -m ping -u PJ
 
 
 Successful output:
 
 node1 | SUCCESS => {"changed": false, "ping": "pong"}
 node2 | SUCCESS => {"changed": false, "ping": "pong"}
-
 
 
 # Summary Flow
@@ -145,7 +170,7 @@ node2 | SUCCESS => {"changed": false, "ping": "pong"}
 Ansible-Vault:-
 ====================
 
-Vault is nothing encrypting the playbook.yml file 
+Vault is nothing; encrypting the playbook.yml file 
 
 ansible-vault create <playbook.yml> ------> To create a playbook with pass(password)
 
@@ -155,7 +180,7 @@ ansible-vault rekey <playbook.yml> -------> To change the pass(password) of vaul
 
 ansible-vault decrypt <playbook.yml>  ------> To remove the pass(password)
 
-ansible-vault encryptingcrypt <playbook.yml>   ------> To give encryption to existing playbook
+ansible-vault encryptingcrypt <playbook.yml>   ------> To give encryption to an existing playbook
 
 
 
